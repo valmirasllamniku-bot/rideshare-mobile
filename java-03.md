@@ -1,32 +1,24 @@
-# Java 03 – Ndërtim objekti afarist
+# Java 03 – Ndërtimtari
 
-## Prova 1 – Faqja kryesore në telefon
+## Prova 1 – Faqja kryesore
 
-Hapa aplikacionin në telefon përmes adresës së rrjetit lokal.
+**Hapat:** E hapa aplikacionin në shfletues përmes `http://localhost:3000` dhe kontrollova kartat e projekteve.
 
-Rezultati:
-- U shfaqën 3 projekte.
-- Projektet u shfaqën në mënyrë të përshtatshme në ekranin e telefonit.
-- Nuk pati scroll horizontal.
+**Rezultati:** Faqja kryesore u hap me sukses dhe u shfaqën tri projektet e ndërtimtarisë.
 
 ## Prova 2 – Detajet dhe kërkesa për ofertë
 
-Hapa projektin “Ndërtim objekti afarist” dhe kontrollova faqen e detajeve.
+**Hapat:** Klikova te “Shiko projektin”, kontrollova detajet dhe pastaj klikova te “Kërko ofertë”.
 
-Rezultati:
-- U shfaqën të dhënat e projektit.
-- Butoni “Kërko ofertë” funksionoi.
-- U hap faqja “Simulim: Në pritje”.
-- U shfaq mesazhi që kërkesa nuk ruhet realisht.
+**Rezultati:** Detajet e projektit u shfaqën dhe faqja e kërkesës u hap me mesazhin “Simulim: Në pritje”.
 
-## Prova 3 – Projekt që nuk ekziston
+## Prova 3 – Projekti që nuk ekziston
 
-Hapa adresën `/projekti/99`.
+**Hapat:** Në shfletues hapa adresën `http://localhost:3000/projekti/99`.
 
-Rezultati:
-- U shfaq mesazhi “Projekti nuk u gjet”.
-- U shfaq mesazhi “Ky projekt nuk ekziston”.
+**Rezultati:** Aplikacioni shfaqi mesazhin “Projekti nuk u gjet”, sepse projekti me ID 99 nuk ekziston.
 
 ## Përfundim
 
-U testuan me sukses faqja kryesore, faqja e detajeve, kërkesa për ofertë dhe rasti kur projekti nuk ekziston.
+U testuan faqja kryesore, detajet e projektit, kërkesa për ofertë dhe rasti kur projekti nuk ekziston.
+
