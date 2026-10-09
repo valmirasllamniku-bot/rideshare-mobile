@@ -1,26 +1,23 @@
-# Java 03 – Ndërtimtari
+# Java 3 – Projektet dhe faqet
 
 ## Prova 1
 
-**Hapat e testimit:** E hapa aplikacionin në `http://localhost:3000` dhe kontrollova kartat e projekteve.
+Hapat e testimit: Hapa faqen kryesore në adresën `http://localhost:3000` dhe kontrollova listën e projekteve të ndërtimtarisë.
 
-**Rezultati real:** Faqja kryesore u hap dhe u shfaqën tri projektet e ndërtimtarisë.
+Rezultati real: Faqja kryesore u hap normalisht dhe projektet u shfaqën në ekran.
 
 ## Prova 2
 
-**Hapat e testimit:** Klikova “Shiko projektin”, kontrollova detajet dhe pastaj klikova “Kërko ofertë”.
+Hapat e testimit: Hapa detajet e një projekti përmes butonit “Shiko projektin” dhe pastaj hapa adresën `http://localhost:3000/projekti/99`.
 
-**Rezultati real:** Detajet u shfaqën dhe kërkesa për ofertë shfaqi mesazhin “Simulim: Në pritje”.
+Rezultati real: Aplikacioni shfaqi mesazhin “Projekti nuk u gjet – Ky projekt nuk ekziston”, sepse nuk ka projekt me ID 99.
 
 ## Prova 3
 
-**Hapat e testimit:** Hapa `http://localhost:3000/projekti/99` në shfletues.
+Hapat e testimit: Hapa detajet e projektit dhe klikova te butoni “Kërko ofertë”.
 
-**Rezultati real:** U shfaq mesazhi “Projekti nuk u gjet”, sepse projekti me ID 99 nuk ekziston.
+Rezultati real: U shfaq simulimi “Në pritje”. Kërkesa për ofertë nuk u dërgua si kërkesë reale.
 
 ## Përfundim
 
-U kontrolluan faqja kryesore, detajet e projektit, kërkesa për ofertë dhe projekti që nuk ekziston.
-
-U testuan faqja kryesore, detajet e projektit, kërkesa për ofertë dhe rasti kur projekti nuk ekziston.
-
+U testuan faqja kryesore, detajet e projektit, rasti kur projekti nuk ekziston dhe simulimi i kërkesës për ofertë.
