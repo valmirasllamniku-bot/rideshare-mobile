@@ -1,37 +1,24 @@
 # Java 03 – Ndërtimtari
 
-## Prova 1 – Faqja kryesore
+## Prova 1
 
-**Hapat:**
+**Hapat e testimit:** E hapa aplikacionin në shfletues në adresën `http://localhost:3000` dhe kontrollova faqen kryesore për të parë nëse shfaqen projektet e ndërtimtarisë.
 
-1. E nisa aplikacionin Next.js me komandën `npm run dev`.
-2. E hapa adresën `http://localhost:3000` në shfletues.
-3. Kontrollova nëse shfaqeshin projektet e ndërtimtarisë.
+**Rezultati real:** Shëno rezultatin që e vërejte gjatë testimit, duke përfshirë nëse faqja u hap dhe cilat projekte u shfaqën.
 
-**Rezultati real:**
-Shëno këtu çfarë ndodhi kur e provove faqen kryesore, për shembull nëse u hap me sukses dhe sa projekte u shfaqën.
+## Prova 2
 
-## Prova 2 – Detajet e projektit dhe kërkesa për ofertë
+**Hapat e testimit:** Zgjodha një projekt nga faqja kryesore, hapa detajet e tij dhe klikova te opsioni për të kërkuar ofertë.
 
-**Hapat:**
+**Rezultati real:** Shëno nëse detajet u hapën dhe çfarë ndodhi pas klikimit te kërkesa për ofertë.
 
-1. Nga faqja kryesore klikova te projekti që dëshiroja ta kontrolloja.
-2. Kontrollova informacionet dhe detajet e projektit.
-3. Klikova te opsioni për të kërkuar ofertë.
+## Prova 3
 
-**Rezultati real:**
-Shëno këtu nëse faqja e detajeve u hap dhe çfarë ndodhi kur klikove te kërkesa për ofertë.
+**Hapat e testimit:** E hapa adresën `http://localhost:3000/projekti/99` për të kontrolluar sjelljen e aplikacionit kur kërkohet një projekt që nuk ekziston.
 
-## Prova 3 – Projekti që nuk ekziston
-
-**Hapat:**
-
-1. Në shfletues hapa adresën `http://localhost:3000/projekti/99`.
-2. Kontrollova se çfarë mesazhi shfaqi aplikacioni për këtë ID.
-
-**Rezultati real:**
-Shëno këtu mesazhin që u shfaq kur e provove adresën, ose përshkruaj gabimin nëse faqja nuk u hap siç pritej.
+**Rezultati real:** Shëno mesazhin që shfaqi aplikacioni ose çfarë ndodhi gjatë testimit.
 
 ## Përfundim
 
-Gjatë testimit u kontrolluan faqja kryesore, detajet e projektit, kërkesa për ofertë dhe sjellja e aplikacionit kur kërkohet një projekt që nuk ekziston.
+U përgatitën tri prova për testimin e faqes kryesore, detajeve të projektit dhe rastit kur kërkohet një projekt që nuk ekziston.
+
