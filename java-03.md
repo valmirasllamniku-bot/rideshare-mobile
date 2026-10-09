@@ -1,19 +1,24 @@
-# Raporti i testimit – Java 3
+# Java 03 – Ndërtimtari
 
 ## Prova 1
 
-**Hapat e testimit:** Hapa aplikacionin Next.js në shfletues përmes adresës `http://localhost:3000`.
+**Hapat e testimit:** Hapa aplikacionin në shfletues përmes adresës `http://localhost:3000` dhe kontrollova faqen kryesore.
 
-**Rezultati real:** Faqja kryesore u hap normalisht dhe aplikacioni ishte i qasshëm.
+**Rezultati real:** Faqja kryesore u hap normalisht.
 
 ## Prova 2
 
-**Hapat e testimit:** Zgjodha një projekt nga faqja kryesore dhe hapa faqen e detajeve të tij.
+**Hapat e testimit:** Zgjodha një projekt, hapa detajet e tij dhe klikova te “Kërko ofertë”.
 
-**Rezultati real:** Faqja e detajeve u hap dhe informacionet e projektit u shfaqën.
+**Rezultati real:** Detajet e projektit u shfaqën dhe formulari i kërkesës për ofertë shfaqi simulimin “Në pritje”.
 
 ## Prova 3
 
-**Hapat e testimit:** Hapa formularin e kërkesës për ofertë dhe e testova funksionalitetin.
+**Hapat e testimit:** Hapa adresën `http://localhost:3000/projekti/99` për të kontrolluar sjelljen kur projekti nuk ekziston.
 
-**Rezultati real:** Formulari shfaqi një simulim të kërkesës për ofertë. Ky test konfirmon simulimin në ndërfaqe, jo dërgimin ose ruajtjen reale të kërkesës.
+**Rezultati real:** Aplikacioni shfaqi mesazhin “Projekti nuk u gjet”, sepse projekti me ID 99 nuk ekziston.
+
+
+## Përfundim
+
+U testuan faqja kryesore, detajet e projektit dhe formulari i kërkesës për ofertë.
