@@ -1,5 +1,5 @@
 import { udhetimet } from "./udhetimet";
-import KartaUdhetimi from "./KartaUdhetimi";
+import KartaUdhetimi from "../components/KartaUdhetimi";
 import styles from "./page.module.css";
 
 export default function Home() {
