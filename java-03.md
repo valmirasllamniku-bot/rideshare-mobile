@@ -1,24 +1,19 @@
-# Java 03 – Ndërtimtari
+# Raporti i testimit – Java 3
 
 ## Prova 1
 
-**Hapat e testimit:** E hapa aplikacionin në shfletues në adresën `http://localhost:3000` dhe kontrollova faqen kryesore për të parë nëse shfaqen projektet e ndërtimtarisë.
+**Hapat e testimit:** Hapa aplikacionin Next.js në shfletues përmes adresës `http://localhost:3000`.
 
-**Rezultati real:** Shëno rezultatin që e vërejte gjatë testimit, duke përfshirë nëse faqja u hap dhe cilat projekte u shfaqën.
+**Rezultati real:** Faqja kryesore u hap normalisht dhe aplikacioni ishte i qasshëm.
 
 ## Prova 2
 
-**Hapat e testimit:** Zgjodha një projekt nga faqja kryesore, hapa detajet e tij dhe klikova te opsioni për të kërkuar ofertë.
+**Hapat e testimit:** Zgjodha një projekt nga faqja kryesore dhe hapa faqen e detajeve të tij.
 
-**Rezultati real:** Shëno nëse detajet u hapën dhe çfarë ndodhi pas klikimit te kërkesa për ofertë.
+**Rezultati real:** Faqja e detajeve u hap dhe informacionet e projektit u shfaqën.
 
 ## Prova 3
 
-**Hapat e testimit:** E hapa adresën `http://localhost:3000/projekti/99` për të kontrolluar sjelljen e aplikacionit kur kërkohet një projekt që nuk ekziston.
+**Hapat e testimit:** Hapa formularin e kërkesës për ofertë dhe e testova funksionalitetin.
 
-**Rezultati real:** Shëno mesazhin që shfaqi aplikacioni ose çfarë ndodhi gjatë testimit.
-
-## Përfundim
-
-U përgatitën tri prova për testimin e faqes kryesore, detajeve të projektit dhe rastit kur kërkohet një projekt që nuk ekziston.
-
+**Rezultati real:** Formulari shfaqi një simulim të kërkesës për ofertë. Ky test konfirmon simulimin në ndërfaqe, jo dërgimin ose ruajtjen reale të kërkesës.
