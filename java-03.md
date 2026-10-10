@@ -1,18 +1,31 @@
 # Java 3 – Projektet dhe faqet
 
-## Prova 1
-Hapat: Hapa faqen kryesore në `http://localhost:3000`.
-Rezultati: U shfaqën tri projekte të ndërtimtarisë.
+## Prova 1 – Faqja kryesore
 
-## Prova 2
-Hapat: Klikova te “Shiko projektin” dhe hapa `/projekti/99`.
-Rezultati: U shfaq mesazhi “Projekti nuk u gjet”.
+Hapat:
+1. Hapa aplikacionin në `http://localhost:3000`.
+2. Kontrollova listën e projekteve.
 
-## Prova 3
-Hapat: Hapa detajet e projektit dhe klikova “Kërko ofertë”.
-Rezultati: U shfaq simulimi “Në pritje”; kërkesa nuk u dërgua realisht.
+Rezultati:
+Faqja kryesore u hap dhe u shfaqën tri projekte të ndërtimtarisë.
+
+## Prova 2 – Projekti që nuk ekziston
+
+Hapat:
+1. Hapa adresën `/projekti/99`.
+
+Rezultati:
+U shfaq mesazhi “Projekti nuk u gjet”.
+
+## Prova 3 – Kërkesa për ofertë
+
+Hapat:
+1. Hapa detajet e një projekti.
+2. Klikova butonin “Kërko ofertë”.
+
+Rezultati:
+U shfaq simulimi “Në pritje”. Kërkesa nuk u dërgua realisht.
 
 ## Përfundim
-U testuan faqja kryesore, detajet e projektit dhe simulimi i kërkesës për ofertë.
 
 U testuan faqja kryesore, detajet e projektit dhe simulimi i kërkesës për ofertë. Kërkesa për ofertë është ende vetëm simulim.
