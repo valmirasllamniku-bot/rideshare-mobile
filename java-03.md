@@ -1,19 +1,23 @@
-# Java 03 – Construction Projects
+# Java 3 – Projektet dhe faqet
 
 ## Prova 1
 
-**Hapat:** Hap aplikacionin në `http://localhost:3000` dhe kontrollo tri kartat e projekteve të ndërtimtarisë.
+**Hapat e testimit:** Hapa faqen kryesore në adresën `http://localhost:3000` dhe kontrollova listën e projekteve të ndërtimtarisë.
 
-**Rezultati real:** Faqja kryesore u hap me sukses dhe u shfaqën tri projektet e ndërtimtarisë.
+**Rezultati real:** Faqja kryesore u hap normalisht dhe tri projektet e ndërtimtarisë u shfaqën në ekran.
 
 ## Prova 2
 
-**Hapat:** Kliko te “Shiko projektin” për të hapur detajet e projektit. Pastaj hape adresën `http://localhost:3000/projekti/99`.
+**Hapat e testimit:** Klikova te butoni “Shiko projektin” për të hapur detajet e projektit dhe pastaj hapa adresën `http://localhost:3000/projekti/99`.
 
-**Rezultati real:** Detajet e projektit u hapën. Për projektin me ID 99 u shfaq mesazhi “Projekti nuk u gjet”.
+**Rezultati real:** Detajet e projektit u shfaqën dhe për ID 99 aplikacioni shfaqi mesazhin “Projekti nuk u gjet”, sepse projekti nuk ekziston.
 
 ## Prova 3
 
-**Hapat:** Hape detajet e projektit dhe kliko te “Kërko ofertë”.
+**Hapat e testimit:** Hapa detajet e projektit dhe klikova te butoni “Kërko ofertë”.
 
-**Rezultati real:** U hap faqja e kërkesës dhe u shfaq mesazhi “Simulim: Në pritje”. Kërkesa është vetëm simulim dhe nuk dërgohet realisht.
+**Rezultati real:** U shfaq simulimi “Në pritje”. Kërkesa për ofertë nuk u dërgua si kërkesë reale.
+
+## Çfarë nuk funksionon ende
+
+Kërkesa për ofertë është vetëm simulim. Aplikacioni nuk dërgon kërkesë reale.
