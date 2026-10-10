@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { udhetimet } from "../../../udhetimet";
 
+export const instant = false;
+
+
 type Props = {
   params: Promise<{
     id: string;

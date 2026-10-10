@@ -1,7 +1,10 @@
+
 import Link from "next/link";
 import { udhetimet } from "../../udhetimet";
-import { notFound } from "next/navigation";
+
+
 export const instant = false;
+
 
 type Props = {
   params: Promise<{
@@ -17,20 +20,20 @@ export default async function ProjektiDetajet({ params }: Props) {
   );
 
   if (!projekti) {
-  return (
-    <main
-      style={{
-        padding: "40px",
-        color: "black",
-        backgroundColor: "white",
-        minHeight: "100vh",
-      }}
-    >
-      <h1>Projekti nuk u gjet</h1>
-      <p>Ky projekt nuk ekziston.</p>
-    </main>
-  );
-}
+    return (
+      <main
+        style={{
+          padding: "40px",
+          color: "black",
+          backgroundColor: "white",
+          minHeight: "100vh",
+        }}
+      >
+        <h1>Projekti nuk u gjet</h1>
+        <p>Ky projekt nuk ekziston.</p>
+      </main>
+    );
+  }
 
   return (
     <main>
@@ -50,17 +53,13 @@ export default async function ProjektiDetajet({ params }: Props) {
         <strong>Vende:</strong> {projekti.vende}
       </p>
 
-      <a href="/projekti/kerko-oferte">
-  {projekti.vende > 0 ? (
-  <Link href={`/projekti/${id}/kerkesa`}>
-    Kërko ofertë
-  </Link>
-) : (
-  <button disabled>
-    Nuk ka vende të lira
-  </button>
-)}
-</a>
+      {projekti.vende > 0 ? (
+        <Link href={`/projekti/${id}/kerkesa`}>
+          Kërko ofertë
+        </Link>
+      ) : (
+        <p>Nuk ka vende të lira.</p>
+      )}
     </main>
   );
 }
