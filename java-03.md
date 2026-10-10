@@ -1,35 +1,19 @@
 # Java 03 – Construction Projects
 
-## Prova 1: Faqja kryesore
+## Prova 1
 
-**Hapat:**
-1. E hapa aplikacionin në shfletues përmes `http://localhost:3000`.
-2. Kontrollova listën e projekteve të ndërtimtarisë.
-3. Kontrollova nëse kartat e projekteve shfaqeshin si duhet.
+**Hapat:** Hap aplikacionin në `http://localhost:3000` dhe kontrollo tri kartat e projekteve të ndërtimtarisë.
 
-**Rezultati:**
-Faqja kryesore u hap me sukses dhe u shfaqën tri projekte të ndërtimtarisë. Kartat e projekteve u paraqitën në faqe.
+**Rezultati real:** Faqja kryesore u hap me sukses dhe u shfaqën tri projektet e ndërtimtarisë.
 
-## Prova 2: Detajet e projektit
+## Prova 2
 
-**Hapat:**
-1. Në faqen kryesore klikova te butoni “Shiko projektin”.
-2. Kontrollova faqen e detajeve të projektit.
-3. Hapa edhe projektin me ID `99` për të testuar një projekt që nuk ekziston.
+**Hapat:** Kliko te “Shiko projektin” për të hapur detajet e projektit. Pastaj hape adresën `http://localhost:3000/projekti/99`.
 
-**Rezultati:**
-Detajet e projektit u shfaqën me sukses. Kur hapa projektin me ID `99`, aplikacioni shfaqi mesazhin “Projekti nuk u gjet”.
+**Rezultati real:** Detajet e projektit u hapën. Për projektin me ID 99 u shfaq mesazhi “Projekti nuk u gjet”.
 
-## Prova 3: Kërkesa për ofertë
+## Prova 3
 
-**Hapat:**
-1. Hapa detajet e një projekti.
-2. Klikova te butoni “Kërko ofertë”.
-3. Kontrollova rezultatin në faqen e kërkesës.
+**Hapat:** Hape detajet e projektit dhe kliko te “Kërko ofertë”.
 
-**Rezultati:**
-Faqja e kërkesës për ofertë u hap me sukses dhe u shfaq mesazhi “Simulim: Në pritje”. Ky funksionalitet është demonstrim dhe nuk dërgon kërkesë reale.
-
-## Përfundim
-
-Gjatë testimit u kontrolluan faqja kryesore, kartat e projekteve, faqja e detajeve, trajtimi i një projekti që nuk ekziston dhe funksionaliteti i kërkesës për ofertë. Rezultatet treguan se këto pjesë të aplikacionit funksionuan sipas testimeve të kryera.
+**Rezultati real:** U hap faqja e kërkesës dhe u shfaq mesazhi “Simulim: Në pritje”. Kërkesa është vetëm simulim dhe nuk dërgohet realisht.
