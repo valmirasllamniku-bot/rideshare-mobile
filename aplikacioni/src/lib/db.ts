@@ -1,25 +1,13 @@
 
-import { Pool } from "pg";
+import "server-only";
+import { neon } from "@neondatabase/serverless";
 
-const connectionString = process.env.DATABASE_URL;
+export function getSql() {
+  const url = process.env.DATABASE_URL;
 
-if (!connectionString) {
-  throw new Error("Mungon DATABASE_URL te .env.local");
-}
+  if (!url) {
+    throw new Error("Databaza nuk është konfiguruar.");
+  }
 
-const globalForDb = globalThis as unknown as {
-  pool?: Pool;
-};
-
-export const db =
-  globalForDb.pool ??
-  new Pool({
-    connectionString,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.pool = db;
+  return neon(url);
 }

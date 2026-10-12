@@ -1,42 +1,17 @@
 
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
+import { gjejProjektin } from "../../../lib/udhetimet";
 
 export const instant = false;
 
 type Props = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-type Projekt = {
-  id: number;
-  emri: string;
-  lokacioni: string;
-  cmimi: string;
-  vende: number;
-  pershkrimi: string;
+  params: Promise<{ id: string }>;
 };
 
 export default async function ProjektiDetajet({ params }: Props) {
   const { id } = await params;
-  const numerId = Number(id);
-
-  if (!Number.isInteger(numerId) || numerId < 1) {
-    notFound();
-  }
-
-  const result = await db.query<Projekt>(
-    `SELECT id, emri, lokacioni, cmimi, vende, pershkrimi
-     FROM projektet
-     WHERE id = $1
-     LIMIT 1`,
-    [numerId]
-  );
-
-  const projekti = result.rows[0];
+  const projekti = await gjejProjektin(id);
 
   if (!projekti) {
     return (
@@ -51,28 +26,10 @@ export default async function ProjektiDetajet({ params }: Props) {
   return (
     <main style={{ padding: "40px" }}>
       <h1>{projekti.emri}</h1>
-
-      <p>{projekti.pershkrimi}</p>
-
-      <p>
-        <strong>Lokacioni:</strong> {projekti.lokacioni}
-      </p>
-
-      <p>
-        <strong>Çmimi:</strong> {projekti.cmimi}
-      </p>
-
-      <p>
-        <strong>Vende:</strong> {projekti.vende}
-      </p>
-
-      {projekti.vende > 0 ? (
-        <Link href={`/projekti/${projekti.id}/kerkesa`}>
-          Kërko ofertë
-        </Link>
-      ) : (
-        <p>Nuk ka vende të lira.</p>
-      )}
+      <p><strong>Lokacioni:</strong> {projekti.lokacioni}</p>
+      <p><strong>Çmimi:</strong> {projekti.cmimi}</p>
+      <p><strong>Vende të lira:</strong> {projekti.vende}</p>
+      <p><strong>Përshkrimi:</strong> {projekti.pershkrimi}</p>
 
       <p>
         <Link href="/">Kthehu te projektet</Link>

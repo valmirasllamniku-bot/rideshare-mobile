@@ -1,16 +1,18 @@
 
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { getSql } from "@/lib/db";
 
 export async function GET() {
   try {
-    const result = await db.query(
-      `SELECT id, emri, lokacioni, cmimi, vende, pershkrimi
-       FROM projektet
-       ORDER BY id`
-    );
+    const sql = getSql();
 
-    return NextResponse.json(result.rows);
+    const projektet = await sql`
+      SELECT id, emri, lokacioni, cmimi, vende, pershkrimi
+      FROM projektet
+      ORDER BY id
+    `;
+
+    return NextResponse.json(projektet);
   } catch (error) {
     console.error("Gabim gjatë marrjes së projekteve:", error);
 
@@ -20,4 +22,5 @@ export async function GET() {
     );
   }
 }
+
 
