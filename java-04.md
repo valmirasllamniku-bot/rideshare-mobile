@@ -1,27 +1,36 @@
 # Java 4 – Databaza Neon
 
-## Projekti
-Ndërtimtari
+## Projekti: Ndërtimtari
+
+Aplikacion web për shfaqjen e projekteve të ndërtimtarisë, i zhvilluar me Next.js dhe TypeScript, me përdorimin e databazës Neon.
 
 ## Prova 1 – Lista e projekteve
 
-**Hapat:** Hapa faqen kryesore në `http://localhost:3000`.
+**Hapat:** Hap aplikacionin në `http://localhost:3000`.
 
-**Rezultati:** U shfaqën projektet e ndërtimtarisë në listë. Të dhënat u morën nga databaza Neon.
+**Rezultati:** Faqja kryesore u hap me sukses dhe u shfaqën projektet e ndërtimtarisë me informacionet përkatëse. Aplikacioni shfaq listën e projekteve në mënyrë të rregullt.
 
 ## Prova 2 – Detajet e projektit
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/1` për të parë detajet e projektit të parë.
+**Hapat:** Hapa adresën `http://localhost:3000/udhetimi/1` për të parë detajet e projektit.
 
-**Rezultati:** U shfaqën detajet e projektit, duke përfshirë emrin, lokacionin, çmimin dhe përshkrimin.
+**Rezultati:** Faqja e detajeve u hap me sukses dhe u shfaqën informacionet për projektin e zgjedhur. Përdoruesi mund të shikojë detajet e projektit.
 
-## Prova 3 – Projekt që nuk ekziston
+## Prova 3 – Kërkesa për projekt
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/99` për të kontrolluar sjelljen e aplikacionit kur projekti nuk ekziston.
+**Hapat:** Hapa adresën `http://localhost:3000/udhetimi/1/kerkesa` për të kontrolluar faqen e kërkesës.
 
-**Rezultati:** Aplikacioni shfaqi mesazhin “Projekti nuk u gjet” dhe mundësinë për t'u kthyer te lista e projekteve.
+**Rezultati:** Faqja e kërkesës u hap me sukses dhe u shfaq ndërfaqja për kërkesën e projektit. Përdoruesi mund të vazhdojë me plotësimin e kërkesës sipas funksionalitetit të aplikacionit.
 
-## Skema e databazës
+## Databaza Neon
 
-Skedari `schema.sql` përmban strukturën e tabelës `projektet` dhe tri të dhënat fillestare për projektet e ndërtimtarisë.
+Databaza Neon përdoret për ruajtjen dhe marrjen e të dhënave të projekteve. Skema e databazës gjendet në skedarin `schema.sql`, ndërsa lidhja me databazën menaxhohet përmes `src/lib/db.ts`.
+
+## Teknologjitë e përdorura
+
+- Next.js
+- TypeScript
+- Neon
+- SQL
+- GitHub
 
