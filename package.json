@@ -1,12 +1,16 @@
-
 {
   "name": "rideshare-mobile",
   "version": "1.0.0",
   "private": true,
-  "description": "Projekti Ndërtimtari",
+  "description": "Projekti Ndert imtari",
   "scripts": {
     "dev": "cd aplikacioni && npm run dev",
     "build": "cd aplikacioni && npm run build",
     "start": "cd aplikacioni && npm run start"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   }
 }
