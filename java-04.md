@@ -1,26 +1,23 @@
 # Java 4 – Databaza Neon
 
-## Projekti
-Ndërtimtari
+## Prova 1
 
-## Prova 1 – Lista e projekteve
+Hapat: Hapa `http://localhost:3000` në shfletues.
 
-**Hapat:** Hapa faqen `http://localhost:3000`.
+Rezultati: Faqja kryesore e aplikacionit Ndërtimtari u hap dhe shfaqi projektet e ndërtimtarisë.
 
-**Rezultati:** U shfaqën projektet e ndërtimtarisë në faqen kryesore.
+## Prova 2
 
-## Prova 2 – Detajet e projektit
+Hapat: Hapa `http://localhost:3000/projekti/1` në shfletues.
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/1`.
+Rezultati: U hap faqja e detajeve për projektin me ID 1.
 
-**Rezultati:** U shfaq faqja me detajet e projektit të parë.
+## Prova 3
 
-## Prova 3 – Projekti që nuk ekziston
+Hapat: Hapa `http://localhost:3000/projekti/99` në shfletues.
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/99`.
-
-**Rezultati:** U shfaq mesazhi “Projekti nuk u gjet” dhe teksti “Ky projekt nuk ekziston”.
+Rezultati: U shfaq titulli “Projekti nuk u gjet” dhe mesazhi “Ky projekt nuk ekziston”.
 
 ## Skema e databazës
 
-Skedari `schema.sql` përmban strukturën e tabelës `projektet` dhe të dhënat fillestare për tri projekte të ndërtimtarisë.
+Skedari `schema.sql` përmban strukturën e tabelës `projektet` dhe të dhënat fillestare të projekteve.
