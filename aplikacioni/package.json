@@ -1,4 +1,4 @@
-{
+<escape>{
   "name": "aplikacioni",
   "version": "0.1.0",
   "private": true,
@@ -25,4 +25,4 @@
     "eslint-config-next": "16.4.0",
     "typescript": "^5"
   }
-}
+}</escape>
