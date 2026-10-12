@@ -1,16 +1,14 @@
+
 import Link from "next/link";
 import { gjejProjektin } from "../../../../lib/udhetimet";
 
-export const instant = false;
 export const dynamic = "force-dynamic";
 
 type Props = {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 };
 
-export default async function Kerkesa({ params }: Props) {
+export default async function KerkesaPerOferte({ params }: Props) {
   const { id } = await params;
   const projekti = await gjejProjektin(id);
 
@@ -29,18 +27,20 @@ export default async function Kerkesa({ params }: Props) {
         ← Kthehu te detajet
       </Link>
 
+      <h1>Kërkesë për ofertë</h1>
+      <h2>{projekti.emri}</h2>
+      <p>Lokacioni: {projekti.lokacioni}</p>
+      <p>Çmimi: {projekti.cmimi}</p>
+
       {projekti.vende > 0 ? (
         <>
-          <h1>Simulim: Në pritje</h1>
+          <p>Simulim: Në pritje</p>
           <p>
-            Kërkesa për projektin "{projekti.emri}" është në pritje.
-          </p>
-          <p>
-            Kjo është vetëm një demonstrim. Kërkesa nuk ruhet realisht.
+            Kjo është vetëm demonstrim. Kërkesa nuk ruhet realisht.
           </p>
         </>
       ) : (
-        <h1>Nuk ka vende të lira.</h1>
+        <p>Nuk ka vende të lira.</p>
       )}
     </main>
   );
