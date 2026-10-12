@@ -1,6 +1,7 @@
-
+import { getSql } from "../../../lib/db";
 import { NextResponse } from "next/server";
-import { getSql } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -17,10 +18,9 @@ export async function GET() {
     console.error("Gabim gjatë marrjes së projekteve:", error);
 
     return NextResponse.json(
-      { error: "Nuk mund të lexohen projektet nga databaza." },
+      { error: "Nuk mund të merren projektet nga databaza." },
       { status: 500 }
     );
   }
 }
-
 
