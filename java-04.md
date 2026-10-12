@@ -1,27 +1,64 @@
-# Java 4 – Databaza Neon
-
-## Projekti
-Ndërtimtari
 
 ## Prova 1 – Lista e projekteve
 
-**Hapat:** Hapa faqen kryesore në `http://localhost:3000`.
+Hapat: Hapa aplikacionin në http://localhost:3000.
 
-**Rezultati:** U shfaqën projektet e ndërtimtarisë në listë. Të dhënat u morën nga databaza Neon.
+Rezultati: Ndërtimtari
+Zgjidh projektin që dëshiron të realizosh.
+
+Ndërtim shtëpie
+Realizo shtëpinë tënde të re.
+
+Lokacioni: Prishtinë
+
+Çmimi: Nga 30,000 €
+
+Vende të lira: 3
+
+Shiko projektin
+Ndërtim objekti afarist
+Projekt për ndërtimin e objektit afarist.
+
+Lokacioni: Fushë Kosovë
+
+Çmimi: Nga 50,000 €
+
+Vende të lira: 2
+
+Shiko projektin
+Renovim banese
+Rifresko dhe rinovo banesën tënde.
+
+Lokacioni: Prishtinë
+
+Çmimi: Nga 10,000 €
+
+Vende të lira: 0
+
+Shiko projektin
 
 ## Prova 2 – Detajet e projektit
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/1` për të parë detajet e projektit të parë.
+Hapat: Hapa http://localhost:3000/projekti/1.
 
-**Rezultati:** U shfaqën detajet e projektit, duke përfshirë emrin, lokacionin, çmimin dhe përshkrimin.
+Rezultati: Ndërtim shtëpie
+Ndërtim i shtëpive të reja sipas kërkesave të klientit.
 
-## Prova 3 – Projekt që nuk ekziston
+Lokacioni: Prishtinë
 
-**Hapat:** Hapa faqen `http://localhost:3000/projekti/99` për të kontrolluar sjelljen e aplikacionit kur projekti nuk ekziston.
+Çmimi: Nga 30,000 €
 
-**Rezultati:** Aplikacioni shfaqi mesazhin “Projekti nuk u gjet” dhe mundësinë për t'u kthyer te lista e projekteve.
+Vende: 3
 
-## Skema e databazës
+Kërko ofertë
 
-Skedari `schema.sql` përmban strukturën e tabelës `projektet` dhe tri të dhënat fillestare për projektet e ndërtimtarisë.
+## Prova 3 – Kërkesa për projekt që nuk ekziston
 
+Hapat: Hapa http://localhost:3000/projekti/99.
+
+Rezultati:Projekti nuk u gjet
+Ky projekt nuk ekziston.
+
+Kthehu te projektet
+
+Rezultati: [Shkruaj mesazhin që u shfaq realisht.]
