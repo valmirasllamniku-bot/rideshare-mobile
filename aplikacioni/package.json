@@ -1,4 +1,4 @@
-<escape>{
+{
   "name": "rideshare-mobile",
   "version": "1.0.0",
   "private": true,
@@ -8,10 +8,11 @@
     "start": "npm --prefix aplikacioni run start"
   },
   "dependencies": {
-    "pg": "^8.23.1"
+    "@neondatabase/serverless": "^1.2.0",
+    "next": "16.4.0",
+    "pg": "^8.23.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1"
   }
-<<<<<<< HEAD
 }
-=======
-}</escape>
->>>>>>> da60436735c1a1b2c296c2adf39db1bd1bfbbc06
