@@ -1,5 +1,12 @@
+
 {
-  "dependencies": {
-    "pg": "^8.23.1"
+  "name": "rideshare-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Projekti Ndërtimtari",
+  "scripts": {
+    "dev": "cd aplikacioni && npm run dev",
+    "build": "cd aplikacioni && npm run build",
+    "start": "cd aplikacioni && npm run start"
   }
 }

@@ -1,28 +1,11 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import { gjejProjektin } from "../../../lib/udhetimet";
-
-
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-export default function ProjektiDetajet({ params }: Props) {
-  return (
-    <Suspense
-      fallback={
-        <main style={{ padding: "40px" }}>
-          <p>Po ngarkohen të dhënat e projektit...</p>
-        </main>
-      }
-    >
-      <Detajet params={params} />
-    </Suspense>
-  );
-}
-
-async function Detajet({ params }: Props) {
+export default async function KerkesaPerOferte({ params }: Props) {
   const { id } = await params;
   const projekti = await gjejProjektin(id);
 
@@ -30,22 +13,29 @@ async function Detajet({ params }: Props) {
     return (
       <main style={{ padding: "40px" }}>
         <h1>Projekti nuk u gjet</h1>
-        <p>Ky projekt nuk ekziston.</p>
         <Link href="/">Kthehu te projektet</Link>
+      </main>
+    );
+  }
+
+  if (projekti.vende <= 0) {
+    return (
+      <main style={{ padding: "40px" }}>
+        <h1>Nuk ka vende të lira</h1>
+        <Link href={`/udhetimi/${id}`}>Kthehu te projekti</Link>
       </main>
     );
   }
 
   return (
     <main style={{ padding: "40px" }}>
-      <h1>{projekti.emri}</h1>
-      <p><strong>Lokacioni:</strong> {projekti.lokacioni}</p>
-      <p><strong>Çmimi:</strong> {projekti.cmimi}</p>
-      <p><strong>Vende të lira:</strong> {projekti.vende}</p>
-      <p><strong>Përshkrimi:</strong> {projekti.pershkrimi}</p>
-      <p>
-        <Link href="/">Kthehu te projektet</Link>
-      </p>
+      <h1>Kërkesë për ofertë</h1>
+      <h2>{projekti.emri}</h2>
+      <p>Lokacioni: {projekti.lokacioni}</p>
+      <p>Çmimi: {projekti.cmimi}</p>
+      <p>Simulim: Në pritje</p>
+      <p>Kjo është vetëm demonstrim. Kërkesa nuk ruhet realisht.</p>
+      <Link href={`/udhetimi/${id}`}>Kthehu te projekti</Link>
     </main>
   );
 }
