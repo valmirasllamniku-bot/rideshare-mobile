@@ -2,6 +2,7 @@ import Link from "next/link";
 import { gjejProjektin } from "../../../../lib/udhetimet";
 
 export const instant = false;
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{
