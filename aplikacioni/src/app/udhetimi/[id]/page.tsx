@@ -1,41 +1,31 @@
-import Link from "next/link";
-import { gjejProjektin } from "../../../lib/udhetimet";
+﻿import Link from "next/link";
+import { notFound } from "next/navigation";
+import { gjejProjektin } from "@/lib/udhetimet";
 
-type Props = {
+export const dynamic = "force-dynamic";
+
+export default async function ProjektiDetajet({
+  params,
+}: {
   params: Promise<{ id: string }>;
-};
-
-export default async function KerkesaPerOferte({ params }: Props) {
+}) {
   const { id } = await params;
   const projekti = await gjejProjektin(id);
 
   if (!projekti) {
-    return (
-      <main style={{ padding: "40px" }}>
-        <h1>Projekti nuk u gjet</h1>
-        <Link href="/">Kthehu te projektet</Link>
-      </main>
-    );
-  }
-
-  if (projekti.vende <= 0) {
-    return (
-      <main style={{ padding: "40px" }}>
-        <h1>Nuk ka vende të lira</h1>
-        <Link href={`/udhetimi/${id}`}>Kthehu te projekti</Link>
-      </main>
-    );
+    notFound();
   }
 
   return (
-    <main style={{ padding: "40px" }}>
-      <h1>Kërkesë për ofertë</h1>
-      <h2>{projekti.emri}</h2>
+    <main>
+      <h1>{projekti.emri}</h1>
       <p>Lokacioni: {projekti.lokacioni}</p>
       <p>Çmimi: {projekti.cmimi}</p>
-      <p>Simulim: Në pritje</p>
-      <p>Kjo është vetëm demonstrim. Kërkesa nuk ruhet realisht.</p>
-      <Link href={`/udhetimi/${id}`}>Kthehu te projekti</Link>
+      <p>Vendet: {projekti.vende}</p>
+      <p>{projekti.pershkrimi}</p>
+      <Link href={`/udhetimi/${projekti.id}/kerkesa`}>
+        Kërko ofertë
+      </Link>
     </main>
   );
 }
