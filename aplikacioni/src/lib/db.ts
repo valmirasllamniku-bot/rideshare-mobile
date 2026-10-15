@@ -11,3 +11,4 @@ export function getSql() {
 
   return neon(url);
 }
+// Konfigurimi i lidhjes me databazen Neon.

@@ -30,3 +30,4 @@ export async function gjejProjektin(
 
   return rows[0] as Projekt | undefined;
 }
+// Funksionet per marrjen e projekteve nga databaza Neon.
