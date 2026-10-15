@@ -1,21 +1,21 @@
 # Java 3 – Projektet dhe faqet
 
-## Prova 1 – Lista e projekteve
+## Prova 1
 
-**Hapat:** Nisa aplikacionin dhe hapa faqen kryesore në shfletues. Kontrollova listën e projekteve të ndërtimtarisë.
+Hapat: E nisa aplikacionin dhe hapa faqen kryesore në shfletues.
 
-**Rezultati:** U shfaq faqja kryesore me titullin “Ndërtimtari” dhe projektet për ndërtim shtëpie, ndërtim objekti afarist dhe renovim banese.
+Rezultati: Faqja kryesore u hap dhe shfaqi titullin “Ndërtimtari” dhe listën e projekteve të ndërtimtarisë.
 
-## Prova 2 – Detajet e projektit
+## Prova 2
 
-**Hapat:** Nga lista kryesore klikova te “Shiko projektin” për të hapur faqen e detajeve.
+Hapat: Klikova te projekti “Ndërtim shtëpie” për t’i parë detajet.
 
-**Rezultati:** U hap faqja e projektit me emrin, lokacionin, çmimin dhe përshkrimin e tij.
+Rezultati: U hap faqja e detajeve të projektit me informacionet për projektin.
 
-## Prova 3 – Projekti që nuk ekziston
+## Prova 3
 
-**Hapat:** Hapa adresën `/projekti/99` në shfletues për të testuar një ID që nuk ekziston.
+Hapat: Hapa adresën `/udhetimi/99` për të kontrolluar një projekt që nuk ekziston.
 
-**Rezultati:** U shfaq titulli “Projekti nuk u gjet” dhe mesazhi “Ky projekt nuk ekziston”.
+Rezultati: Aplikacioni shfaqi mesazhin “Projekti nuk u gjet”.
 
 
