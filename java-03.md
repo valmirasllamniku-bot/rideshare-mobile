@@ -14,6 +14,6 @@
 
 ## Prova 3 – Projekti që nuk ekziston
 
-**Hapat:** Hapa adresën `/projekti/99`.
+**Hapat:** Hapa adresën `/projekti/99` në shfletues për të kontrolluar sjelljen e aplikacionit kur kërkohet një projekt që nuk ekziston.
 
-**Rezultati:** Nëse shfaqet mesazhi “Projekti nuk u gjet”, kjo konfirmon se aplikacioni trajton një ID që nuk ekziston.
+**Rezultati:** U shfaq titulli “Projekti nuk u gjet” dhe mesazhi “Ky projekt nuk ekziston”.

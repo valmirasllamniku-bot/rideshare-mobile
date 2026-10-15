@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 type Props = {
   projekt: {
@@ -20,7 +20,7 @@ export default function KartaUdhetimi({ projekt }: Props) {
       <p>Çmimi: {projekt.cmimi}</p>
       <p>Vende të lira: {projekt.vende}</p>
 
-      <Link href={`/projekti/${projekt.id}`}>
+      <Link href={`/udhetimi/${projekt.id}`}>
         Shiko projektin
       </Link>
     </article>
