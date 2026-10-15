@@ -1,31 +1,19 @@
 # Java 3 – Projektet dhe faqet
 
-## Prova 1 – Faqja kryesore
+## Prova 1 – Lista kryesore
 
-Hapat:
-1. Hapa aplikacionin në `http://localhost:3000`.
-2. Kontrollova listën e projekteve.
+**Hapat:** Nisa aplikacionin dhe hapa faqen kryesore në shfletues.
 
-Rezultati:
-Faqja kryesore u hap dhe u shfaqën tri projekte të ndërtimtarisë.
+**Rezultati:** Kontrollova listën e projekteve të ndërtimtarisë dhe tekstin që shpjegon zgjedhjen e projektit.
 
-## Prova 2 – Projekti që nuk ekziston
+## Prova 2 – Detajet e projektit
 
-Hapat:
-1. Hapa adresën `/projekti/99`.
+**Hapat:** Hapa faqen e detajeve të një projekti nga lista kryesore.
 
-Rezultati:
-U shfaq mesazhi “Projekti nuk u gjet”.
+**Rezultati:** Kontrollova nëse shfaqen emri, lokacioni, çmimi dhe përshkrimi i projektit.
 
-## Prova 3 – Kërkesa për ofertë
+## Prova 3 – Projekti që nuk ekziston
 
-Hapat:
-1. Hapa detajet e një projekti.
-2. Klikova butonin “Kërko ofertë”.
+**Hapat:** Hapa adresën `/projekti/99`.
 
-Rezultati:
-U shfaq simulimi “Në pritje”. Kërkesa nuk u dërgua realisht.
-
-## Përfundim
-
-U testuan faqja kryesore, detajet e projektit dhe simulimi i kërkesës për ofertë. Kërkesa për ofertë është ende vetëm simulim.
+**Rezultati:** Nëse shfaqet mesazhi “Projekti nuk u gjet”, kjo konfirmon se aplikacioni trajton një ID që nuk ekziston.
