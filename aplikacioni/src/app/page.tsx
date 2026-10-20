@@ -1,6 +1,7 @@
 
 "use client";
 
+import Hyrja from "../components/Hyrja";
 import { useEffect, useState } from "react";
 import KartaUdhetimi from "../components/KartaUdhetimi";
 import styles from "./page.module.css";
@@ -35,6 +36,10 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <Hyrja brenda={false} />
+<p>
+  <a href="/panel">Paneli i klientit</a>
+</p>
       <h1>Ndërtimtari</h1>
 
       <p className={styles.pershkrimi}>
