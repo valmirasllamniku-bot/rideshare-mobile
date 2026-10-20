@@ -1,58 +1,28 @@
-\# Java 5 – Autentikimi dhe lejet në Ndërtimtari
+﻿# Java 5 – Autentikimi dhe lejet në Ndërtimtari
 
-
-
-\## Përshkrimi
-
-
+## Përshkrimi
 
 Në këtë javë e vazhdova projektin Ndërtimtari duke integruar autentikimin me GitHub, profilin e përdoruesit dhe ruajtjen e kërkesave për oferta në databazën Neon.
 
+## Prova 1 – Hyrja me GitHub
 
+**Hapat:** E hapa aplikacionin në shfletues, klikova te “Hyr me GitHub” dhe u kyça me llogarinë time GitHub.
 
-\## Prova 1 – Hyrja me GitHub
+**Rezultati:** Hyrja u realizua me sukses dhe paneli shfaqi profilin e përdoruesit.
 
+## Prova 2 – Krijimi i kërkesës për ofertë
 
+**Hapat:** Në panel zgjodha projektin “Ndërtim shtëpie”, shkrova mesazhin e kërkesës dhe klikova butonin për dërgim.
 
-\*\*Hapat:\*\* E hapa aplikacionin në shfletues dhe klikova te “Hyr me GitHub”.
+**Rezultati:** Kërkesa u ruajt në databazën Neon dhe u shfaq në panel.
 
+## Prova 3 – Ndryshimi i kërkesës
 
+**Hapat:** E hapa kërkesën ekzistuese, e ndryshova mesazhin dhe klikova “Ruaj ndryshimet”.
 
-\*\*Rezultati:\*\* Hyrja u realizua me sukses dhe paneli shfaqi profilin dhe rolin e përdoruesit.
+**Rezultati:** Ndryshimi u ruajt me sukses dhe kërkesa e përditësuar u shfaq në panel.
 
+## Përfundimi
 
-
-\## Prova 2 – Krijimi i kërkesës për ofertë
-
-
-
-\*\*Hapat:\*\* Në panel zgjodha projektin “Ndërtim shtëpie”, shkrova përshkrimin e kërkesës dhe klikova “Dërgo kërkesën”.
-
-
-
-\*\*Rezultati:\*\* Kërkesa u ruajt me sukses në databazën Neon.
-
-
-
-\## Prova 3 – Ndryshimi i kërkesës
-
-
-
-\*\*Hapat:\*\* E ndryshova përshkrimin e kërkesës ekzistuese dhe klikova “Ruaj ndryshimet”.
-
-
-
-\*\*Rezultati:\*\* Ndryshimi u ruajt me sukses dhe aplikacioni shfaqi mesazhin përkatës.
-
-
-
-\## Përfundimi
-
-
-
-Gjatë Java 5 e testova autentikimin me GitHub dhe funksionalitetet e krijimit dhe ndryshimit të kërkesës për ofertë. Aplikacioni Ndërtimtari përdor Neon për ruajtjen e të dhënave.
-
-
-
-\*\*Shënim:\*\* Këto prova dokumentojnë funksionalitetet e testuara në Ndërtimtari. Kontrolli i pronësisë së të dhënave dhe kërkesat specifike të udhëzimit Java 5 duhet të verifikohen veçmas.
+Gjatë Java 5 testova hyrjen me GitHub dhe funksionalitetet për krijimin dhe ndryshimin e kërkesave për oferta në projektin Ndërtimtari. Të dhënat ruhen në databazën Neon.
 
