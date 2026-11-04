@@ -31,7 +31,7 @@ Kam përdorur ChatGPT për shpjegimin e kodit, krijimin dhe përmirësimin e for
 
 ## Korrigjimi (arsyeja)
 
-Skedari: aplikacioni/src/app/api/udhetimet/route.ts
+Skedari: aplikacioni/src/app/page.tsx
 
 Arsyeja: Ky skedar përmban formularin për kërkesë oferte. E përmirësova duke shtuar fushat për emër, email, telefon dhe përshkrim. Kërkesa ruhet në Local Storage me çelësin ndertimtari-kerkesat. Shtova edhe verifikimin e ruajtjes dhe mesazhin për sukses ose gabim. Gjithashtu, shtova lidhjen "Kërko ofertë" në faqen e detajeve.
 
@@ -74,6 +74,7 @@ Hapat: Aktivizova Offline në Chrome DevTools dhe hapa faqen e formularit.
 Pritshmëria: Faqja e ruajtur të hapej pa internet.
 
 Vëzhgimi: Formulari u hap offline. Dërgimi i një kërkese të re offline nuk u verifikua me sukses.
+
 
 
 
