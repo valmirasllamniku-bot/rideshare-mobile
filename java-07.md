@@ -31,15 +31,13 @@ Kam përdorur ChatGPT për shpjegimin e kodit, krijimin dhe përmirësimin e for
 
 ## Korrigjimi (arsyeja)
 
-Skedari: `aplikacioni/src/app/projekti/[id]/kerkesa/page.tsx`
+Skedari: aplikacioni/src/app/projekti/[id]/kerkesa/page.tsx
 
-Ky skedar përmban formularin për kërkesë oferte. E përmirësova duke shtuar fushat për emër, email, telefon dhe përshkrim. Kërkesa ruhet në Local Storage me çelësin `ndertimtari-kerkesat`. Shtova edhe verifikimin e ruajtjes dhe mesazhin për sukses ose gabim.
-
-Gjithashtu, shtova lidhjen "Kërko ofertë" në faqen e detajeve dhe përmirësova Service Worker për ruajtjen e faqeve dhe burimeve në cache.
+Arsyeja: Ky skedar përmban formularin për kërkesë oferte. E përmirësova duke shtuar fushat për emër, email, telefon dhe përshkrim. Kërkesa ruhet në Local Storage me çelësin ndertimtari-kerkesat. Shtova edhe verifikimin e ruajtjes dhe mesazhin për sukses ose gabim. Gjithashtu, shtova lidhjen "Kërko ofertë" në faqen e detajeve.
 
 ## Prova 1
 
-Hapat: Hapa adresën `http://localhost:3000/projekti/1`.
+Hapat: Hapa adresën http://localhost:3000/projekti/1.
 
 Pritshmëria: Të shfaqeshin detajet e projektit me ID 1.
 
@@ -47,7 +45,7 @@ Vëzhgimi: U shfaqën detajet e projektit "Ndërtim shtëpie". Prova kaloi.
 
 ## Prova 2
 
-Hapat: Hapa adresën `http://localhost:3000/projekti/99`.
+Hapat: Hapa adresën http://localhost:3000/projekti/99.
 
 Pritshmëria: Të shfaqej mesazhi se projekti nuk ekziston.
 
@@ -55,7 +53,7 @@ Vëzhgimi: U shfaqën mesazhet "Projekti nuk u gjet" dhe "Ky projekt nuk ekzisto
 
 ## Prova 3
 
-Hapat: Hapa adresën `http://localhost:3000/api/udhetimet`.
+Hapat: Hapa adresën http://localhost:3000/api/udhetimet.
 
 Pritshmëria: API-ja të kthente projektet e regjistruara në databazë.
 
