@@ -30,6 +30,11 @@ export default async function ProjektiDetajet({ params }: Props) {
       <p><strong>Çmimi:</strong> {projekti.cmimi}</p>
       <p><strong>Vende të lira:</strong> {projekti.vende}</p>
       <p><strong>Përshkrimi:</strong> {projekti.pershkrimi}</p>
+      <p>
+  <Link href={`/projekti/${id}/kerkesa`}>
+    Kërko ofertë
+  </Link>
+</p>
 
       <p>
         <Link href="/">Kthehu te projektet</Link>

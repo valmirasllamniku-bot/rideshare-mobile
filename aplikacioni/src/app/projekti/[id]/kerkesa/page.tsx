@@ -1,47 +1,112 @@
 
-import Link from "next/link";
-import { gjejProjektin } from "../../../../lib/udhetimet";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 
-type Props = {
-  params: Promise<{ id: string }>;
+type Kerkesa = {
+  id: number;
+  projektiId: string;
+  emri: string;
+  email: string;
+  telefoni: string;
+  pershkrimi: string;
+  data: string;
 };
 
-export default async function KerkesaPerOferte({ params }: Props) {
-  const { id } = await params;
-  const projekti = await gjejProjektin(id);
+export default function KerkesaPage() {
+  const params = useParams();
+  const router = useRouter();
+  const id = String(params.id);
 
-  if (!projekti) {
-    return (
-      <main>
-        <h1>Projekti nuk u gjet</h1>
-        <Link href="/">Kthehu te projektet</Link>
-      </main>
-    );
+  const [emri, setEmri] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefoni, setTelefoni] = useState("");
+  const [pershkrimi, setPershkrimi] = useState("");
+  const [mesazhi, setMesazhi] = useState("");
+
+  function dergoKerkesen(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setMesazhi("");
+
+    try {
+      const kerkesa: Kerkesa = {
+        id: Date.now(),
+        projektiId: id,
+        emri,
+        email,
+        telefoni,
+        pershkrimi,
+        data: new Date().toISOString(),
+      };
+
+      const teRuajturat = localStorage.getItem("ndertimtari-kerkesat");
+      const kerkesat: Kerkesa[] = teRuajturat
+        ? JSON.parse(teRuajturat)
+        : [];
+
+      kerkesat.push(kerkesa);
+
+      localStorage.setItem(
+        "ndertimtari-kerkesat",
+        JSON.stringify(kerkesat)
+      );
+
+      const verifikimi = localStorage.getItem("ndertimtari-kerkesat");
+      if (!verifikimi || !JSON.parse(verifikimi).some(
+        (item: Kerkesa) => item.id === kerkesa.id
+      )) {
+        throw new Error("Kërkesa nuk u verifikua.");
+      }
+
+      setMesazhi("Kërkesa u ruajt me sukses, edhe pa internet!");
+      setEmri("");
+      setEmail("");
+      setTelefoni("");
+      setPershkrimi("");
+    } catch {
+      setMesazhi("Gabim gjatë ruajtjes. Të dhënat nuk u fshinë.");
+    }
   }
 
   return (
-    <main>
-      <Link href={`/projekti/${id}`}>
-        ← Kthehu te detajet
-      </Link>
+    <main style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
+      <h1>Kërko ofertë</h1>
+      <p>Projekti i zgjedhur: {id}</p>
 
-      <h1>Kërkesë për ofertë</h1>
-      <h2>{projekti.emri}</h2>
-      <p>Lokacioni: {projekti.lokacioni}</p>
-      <p>Çmimi: {projekti.cmimi}</p>
+      <form onSubmit={dergoKerkesen}>
+        <label>Emri dhe mbiemri</label>
+        <input required value={emri} onChange={(e) => setEmri(e.target.value)}
+          placeholder="Shkruaj emrin"
+          style={{ display: "block", width: "100%", padding: "10px", margin: "8px 0 16px" }} />
 
-      {projekti.vende > 0 ? (
-        <>
-          <p>Simulim: Në pritje</p>
-          <p>
-            Kjo është vetëm demonstrim. Kërkesa nuk ruhet realisht.
-          </p>
-        </>
-      ) : (
-        <p>Nuk ka vende të lira.</p>
-      )}
+        <label>Email</label>
+        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+          placeholder="Shkruaj emailin"
+          style={{ display: "block", width: "100%", padding: "10px", margin: "8px 0 16px" }} />
+
+        <label>Numri i telefonit</label>
+        <input required value={telefoni} onChange={(e) => setTelefoni(e.target.value)}
+          placeholder="Shkruaj numrin"
+          style={{ display: "block", width: "100%", padding: "10px", margin: "8px 0 16px" }} />
+
+        <label>Përshkrimi i kërkesës</label>
+        <textarea required value={pershkrimi} onChange={(e) => setPershkrimi(e.target.value)}
+          placeholder="Përshkruaj çfarë dëshiron të ndërtosh..."
+          rows={5}
+          style={{ display: "block", width: "100%", padding: "10px", margin: "8px 0 16px" }} />
+
+        <button type="submit" style={{ padding: "12px 20px", cursor: "pointer" }}>
+          Dërgo kërkesën
+        </button>
+      </form>
+
+      {mesazhi && <p role="status">{mesazhi}</p>}
+
+      <button type="button" onClick={() => router.push(`/projekti/${id}`)}
+        style={{ marginTop: "20px", padding: "10px" }}>
+        Kthehu te projekti
+      </button>
     </main>
   );
 }

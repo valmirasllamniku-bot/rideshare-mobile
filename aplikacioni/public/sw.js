@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "ndertimtari-v3";
+const CACHE_NAME = "ndertimtari-v4";
 
 const FILES_TO_CACHE = [
   "/",
@@ -44,7 +44,6 @@ self.addEventListener("fetch", (event) => {
 
   if (url.origin !== self.location.origin) return;
 
-  // Ruajtja e listës së projekteve.
   if (
     url.pathname === "/api/udhetimet" ||
     url.pathname === "/api/projektet"
@@ -58,17 +57,11 @@ self.addEventListener("fetch", (event) => {
             const savedAt = new Date().toISOString();
 
             await cache.put(request, response.clone());
-
             await cache.put(
               META_URL,
-              new Response(
-                JSON.stringify({ savedAt }),
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              )
+              new Response(JSON.stringify({ savedAt }), {
+                headers: { "Content-Type": "application/json" },
+              })
             );
 
             const headers = new Headers(response.headers);
@@ -88,11 +81,9 @@ self.addEventListener("fetch", (event) => {
 
           if (cached) {
             const metadata = await cache.match(META_URL);
-            const info = metadata
-              ? await metadata.json()
-              : {};
-
+            const info = metadata ? await metadata.json() : {};
             const headers = new Headers(cached.headers);
+
             headers.set("x-rideshare-source", "cache");
 
             if (info.savedAt) {
@@ -107,14 +98,10 @@ self.addEventListener("fetch", (event) => {
           }
 
           return new Response(
-            JSON.stringify({
-              error: "Nuk ka të dhëna të ruajtura offline.",
-            }),
+            JSON.stringify({ error: "Nuk ka të dhëna offline." }),
             {
               status: 503,
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
             }
           );
         }
@@ -124,23 +111,52 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Faqja që hapet pa internet.
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request).catch(async () => {
-        return (
-          (await caches.match(request)) ||
-          (await caches.match("/offline.html"))
-        );
-      })
+      (async () => {
+        try {
+          const response = await fetch(request);
+
+          if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(request, response.clone());
+          }
+
+          return response;
+        } catch {
+          return (
+            (await caches.match(request)) ||
+            (await caches.match("/offline.html"))
+          );
+        }
+      })()
     );
 
     return;
   }
 
   event.respondWith(
-    caches.match(request).then((cached) =>
-      cached || fetch(request)
-    )
+    caches.open(CACHE_NAME).then(async (cache) => {
+      const cached = await cache.match(request);
+
+      if (cached) return cached;
+
+      try {
+        const response = await fetch(request);
+
+        if (response.ok) {
+          await cache.put(request, response.clone());
+        }
+
+        return response;
+      } catch {
+        return new Response("Nuk ka lidhje me internetin.", {
+          status: 503,
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8",
+          },
+        });
+      }
+    })
   );
 });
