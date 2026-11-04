@@ -74,3 +74,5 @@ Hapat: Aktivizova Offline në Chrome DevTools dhe hapa faqen e formularit.
 Pritshmëria: Faqja e ruajtur të hapej pa internet.
 
 Vëzhgimi: Formulari u hap offline. Dërgimi i një kërkese të re offline nuk u verifikua me sukses.
+
+
