@@ -4,13 +4,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ndërtimtari - Offline</title>
+  <title>Ndërtimtari - Lista offline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #222;
+      margin: 0;
+      padding: 20px;
+    }
+    main {
+      max-width: 700px;
+      margin: auto;
+    }
+    .karta {
+      background: white;
+      padding: 18px;
+      margin: 15px 0;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+    button {
+      padding: 12px 18px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    #burimi {
+      padding: 12px;
+      background: #e5e7eb;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
+<main>
   <h1>Ndërtimtari</h1>
-  <h2>Je jashtë linje</h2>
-  <p>Nuk ka lidhje me internetin për momentin.</p>
-  <button onclick="location.reload()">Provo përsëri</button>
+  <h2>Projektet ndërtimore</h2>
+
+  <p id="burimi" role="status" aria-live="polite">
+    Duke ngarkuar projektet...
+  </p>
+
+  <p>
+    Ruajtur për herë të fundit:
+    <time id="koha">—</time>
+  </p>
+
+  <button id="rifresko">Rifresko listën</button>
+
+  <div id="projektet"></div>
+
+  <button disabled>Kërko ofertë - kërkon internet</button>
+
+  <p>
+    Kjo faqe shërben vetëm për lexim.
+    Projektet mund të kenë ndryshuar.
+    Asnjë ofertë nuk është konfirmuar.
+  </p>
+
+  <a href="/">Kthehu te aplikacioni</a>
+</main>
+
+<script>
+  const burimi = document.getElementById("burimi");
+  const lista = document.getElementById("projektet");
+  const butoni = document.getElementById("rifresko");
+  const koha = document.getElementById("koha");
+
+  async function ngarkoProjektet() {
+    butoni.disabled = true;
+    burimi.textContent = "Duke kërkuar projektet...";
+
+    try {
+      const response = await fetch("/api/udhetimet", {
+        cache: "no-store"
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !Array.isArray(data)) {
+        throw new Error("Lista nuk u gjet.");
+      }
+
+      lista.replaceChildren();
+
+      data.forEach((projekt) => {
+        const karta = document.createElement("article");
+        karta.className = "karta";
+
+        const titulli = document.createElement("h2");
+        titulli.textContent = projekt.emri;
+
+        const lokacioni = document.createElement("p");
+        lokacioni.textContent = "Lokacioni: " + projekt.lokacioni;
+
+        const cmimi = document.createElement("p");
+        cmimi.textContent = "Çmimi: " + projekt.cmimi;
+
+        const vende = document.createElement("p");
+        vende.textContent = "Vende: " + projekt.vende;
+
+        const pershkrimi = document.createElement("p");
+        pershkrimi.textContent = projekt.pershkrimi;
+
+        karta.append(
+          titulli,
+          lokacioni,
+          cmimi,
+          vende,
+          pershkrimi
+        );
+
+        lista.appendChild(karta);
+      });
+
+      const kohaRuajtjes = response.headers.get(
+        "x-rideshare-saved-at"
+      );
+
+      koha.textContent = kohaRuajtjes
+        ? new Date(kohaRuajtjes).toLocaleString("sq-AL")
+        : "Nuk u ruajt kopja lokale.";
+
+      burimi.textContent =
+        response.headers.get("x-rideshare-source") === "cache"
+          ? "Projektet u lexuan nga kopja e ruajtur offline."
+          : "Projektet u morën nga serveri.";
+
+    } catch {
+      burimi.textContent = lista.children.length
+        ? "Lidhja dështoi. Po shfaqen të dhënat e mëparshme."
+        : "Nuk ka ende projekte të ruajtura. Hape aplikacionin me internet.";
+    } finally {
+      butoni.disabled = false;
+    }
+  }
+
+  butoni.addEventListener("click", ngarkoProjektet);
+
+  window.addEventListener("online", () => {
+    burimi.textContent =
+      "Interneti u rikthye. Kliko Rifresko listën.";
+  });
+
+  window.addEventListener("offline", () => {
+    burimi.textContent =
+      "Je jashtë linje. Po përdorim kopjen e ruajtur.";
+  });
+
+  ngarkoProjektet();
+</script>
 </body>
 </html>
-
