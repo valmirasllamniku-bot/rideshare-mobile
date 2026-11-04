@@ -31,9 +31,9 @@ Kam përdorur ChatGPT për shpjegimin e kodit, krijimin dhe përmirësimin e for
 
 ## Korrigjimi (arsyeja)
 
-Skedari: aplikacioni/src/app/page.tsx
+Skedari: aplikacioni/src/app/projekti/[id]/kerkesa/page.tsx
 
-Arsyeja: Ky skedar përmban formularin për kërkesë oferte. E përmirësova duke shtuar fushat për emër, email, telefon dhe përshkrim. Kërkesa ruhet në Local Storage me çelësin ndertimtari-kerkesat. Shtova edhe verifikimin e ruajtjes dhe mesazhin për sukses ose gabim. Gjithashtu, shtova lidhjen "Kërko ofertë" në faqen e detajeve.
+Arsyeja: Ky skedar përmban faqen e formularit për kërkesë oferte. Formulari ka fushat për emër, email, telefon dhe përshkrim. Funksioni dergoKerkesen ruan kërkesën në Local Storage me çelësin ndertimtari-kerkesat dhe verifikon nëse është ruajtur me sukses.
 
 ## Prova 1
 
@@ -79,4 +79,12 @@ Vëzhgimi: Formulari u hap offline. Dërgimi i një kërkese të re offline nuk 
 
 
 
+
+
+
+## Lidhjet e commit-eve
+
+Para: https://github.com/valmirasllamniku-bot/rideshare-mobile/commit/4e5c65c7e806dfec20bc2fec681464dfcfaa123b
+
+Pas: https://github.com/valmirasllamniku-bot/rideshare-mobile/commit/bcec1e49f515158ceb5ca46a4b5b1a40cdd95de6
 
