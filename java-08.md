@@ -65,3 +65,15 @@ Të mundësohet përcaktimi i vendtakimit për konsultim me ekipin e Ndërtimtar
 ## Përfundimi
 Funksionaliteti i vendtakimit është integruar në projektin Ndërtimtari. Janë testuar vendtakimi manual, marrja e vendndodhjes, refuzimi i lejes dhe përfundimi i kohës së pritjes.
 
+
+### Prova me një hyrje të re
+
+**Hyrja që provova:** Prishtinë, lagjja Dardania – hyrja B.
+
+**Parashikimi im para klikimit:** Parashikova që pas klikimit në butonin "Konfirmo vendtakimin", aplikacioni do ta ruajë dhe shfaqë hyrjen e re si vendtakim të konfirmuar.
+
+**Çfarë pashë realisht:** Shkrova "Prishtinë, lagjja Dardania – hyrja B" në fushën e vendtakimit dhe klikova "Konfirmo vendtakimin". Aplikacioni shfaqi vendtakimin e konfirmuar me tekstin që shkrova.
+
+**Skedari dhe funksioni që e shpjegojnë:** `aplikacioni/src/components/Vendtakimi.tsx`, funksioni `konfirmoVendtakimin()`, i cili kontrollon tekstin e shkruar dhe e vendos si vendtakim të konfirmuar.
+
+**Çfarë kuptova ose korrigjova:** Kuptova se përdoruesi mund të vendosë një hyrje të re manualisht dhe të konfirmojë vendtakimin pa pasur nevojë për GPS.
