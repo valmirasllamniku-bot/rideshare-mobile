@@ -97,7 +97,7 @@ export default function Vendtakimi() {
         type="text"
         value={teksti}
         onChange={(e) => setTeksti(e.target.value)}
-        placeholder="P.sh. Biblioteka"
+        placeholder="P.sh. Prishtinë, lagjja Dardania"
         style={{
           display: "block",
           width: "100%",
@@ -112,7 +112,7 @@ export default function Vendtakimi() {
         data-testid="confirm-meeting"
         onClick={konfirmoVendtakimin}
       >
-        Konfirmo në telefon
+        Konfirmo vendtakimin
       </button>
 
       <p data-testid="meeting-error" role="alert">
@@ -157,3 +157,4 @@ export default function Vendtakimi() {
     </section>
   );
 }
+

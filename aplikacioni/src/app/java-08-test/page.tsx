@@ -3,10 +3,15 @@
 export default function Java08Test() {
   return (
     <main style={{ padding: "20px" }}>
-      <h1>Java 8 – Testimi i vendtakimit</h1>
+      <h1>Java 8 – Vendtakimi i projektit</h1>
 
-      <p>Udhëtimi i Dritonit</p>
-      <p>Ferizaj → AAB</p>
+      <h2>Ndërtim shtëpie</h2>
+
+      <p>Lokacioni i projektit: Prishtinë, lagjja Dardania</p>
+
+      <p>
+        Përcakto vendtakimin për konsultim me ekipin e Ndërtimtarisë.
+      </p>
 
       <Vendtakimi />
     </main>
