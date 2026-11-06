@@ -1,75 +1,396 @@
-.main {
+﻿.main {
   min-height: 100vh;
-  padding: 40px 20px;
-  background: #f5f5f5;
+  padding: 0 7%;
+  background: #faf9f6;
+  color: #202020;
+  font-family: Arial, sans-serif;
 }
 
-.main h1 {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 36px;
+.header {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e9e6df;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 17px;
+}
+
+.logoIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: #ed7b25;
+  color: white;
+  border-radius: 10px;
+  font-size: 22px;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav a:hover {
+  color: #ed7b25;
+}
+
+.hero {
+  min-height: 510px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+  padding: 55px 0 65px;
+}
+
+.heroContent {
+  max-width: 570px;
+}
+
+.etiketa {
+  display: inline-block;
+  color: #ed7b25;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 5.5vw, 70px);
+  line-height: 1.08;
+  letter-spacing: -3px;
+  margin: 0 0 22px;
+  font-weight: 900;
+}
+
+.hero h1 span {
+  color: #ed7b25;
 }
 
 .pershkrimi {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #555;
+  max-width: 460px;
+  color: #777;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+
+.heroButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background: #ed7b25;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.heroButton:hover {
+  background: #c95f12;
+  transform: translateY(-2px);
+}
+
+.heroButton span {
+  font-size: 22px;
+}
+
+.heroInfo {
+  display: flex;
+  gap: 45px;
+  margin-top: 48px;
+}
+
+.heroInfo div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.heroInfo strong {
+  font-size: 23px;
+}
+
+.heroInfo span {
+  font-size: 12px;
+  color: #888;
+}
+
+.heroVisual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 390px;
+}
+
+.visualBox {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  height: 350px;
+  background: #292c2e;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.15);
+}
+
+.visualTop,
+.visualBottom {
+  display: flex;
+  justify-content: space-between;
+  color: #dedbd5;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.building {
+  width: 220px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buildingRoof {
+  width: 250px;
+  height: 15px;
+  background: #ed7b25;
+  transform: skewY(-5deg);
+}
+
+.buildingBody {
+  width: 220px;
+  height: 175px;
+  background: #e6e1d8;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 20px;
+}
+
+.windows {
+  background: #68777c;
+  border: 5px solid #c5bdb0;
+}
+
+.buildingBase {
+  width: 250px;
+  height: 12px;
+  background: #ed7b25;
+}
+
+.orangeCircle {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: #ed7b25;
+  border-radius: 50%;
+  right: -20px;
+  top: 5px;
+}
+
+.projectsSection {
+  padding: 55px 0 80px;
+  border-top: 1px solid #e9e6df;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.sectionHeading h2 {
+  font-size: 38px;
+  margin: 0 0 10px;
+  letter-spacing: -1px;
+}
+
+.sectionHeading p {
+  color: #888;
+  margin: 0;
+}
+
+.projectCount {
+  color: #ed7b25;
+  font-weight: 700;
+  font-size: 13px;
 }
 
 .kartat {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
 }
 
-.karta {
+.kartat :global(.karta-udhetimit) {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 28px;
+  border: 1px solid #eeeae3;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s, box-shadow 0.25s;
 }
 
-.karta h2 {
-  margin-bottom: 15px;
+.kartat :global(.karta-udhetimit:hover) {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.09);
 }
 
-.karta p {
-  margin: 8px 0;
-  line-height: 1.5;
+.kartat :global(.karta-udhetimit h2) {
+  font-size: 21px;
+  margin: 0 0 15px;
+  color: #252525;
 }
 
-.butoni {
+.kartat :global(.karta-udhetimit p) {
+  color: #777;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.kartat :global(.karta-udhetimit a) {
   display: inline-block;
   margin-top: 15px;
-  padding: 10px 16px;
-  background: #333;
+  padding: 12px 18px;
+  background: #ed7b25;
   color: white;
+  border-radius: 7px;
   text-decoration: none;
-  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.2s;
 }
 
-.karta button {
-  margin-top: 15px;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  background: #ccc;
-  color: #666;
+.kartat :global(.karta-udhetimit a:hover) {
+  background: #c95f12;
 }
 
-/* Pamja në telefon */
-@media (max-width: 700px) {
+.status {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  color: #777;
+}
+
+.footer {
+  border-top: 1px solid #e9e6df;
+  padding: 28px 0;
+  display: flex;
+  justify-content: space-between;
+  color: #888;
+  font-size: 12px;
+}
+
+.footer span:first-child {
+  color: #292c2e;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 900px) {
   .main {
-    padding: 25px 15px;
+    padding: 0 5%;
   }
 
-  .main h1 {
-    font-size: 28px;
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 65px;
+  }
+
+  .heroVisual {
+    min-height: 350px;
+  }
+
+  .kartat {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    min-height: 75px;
+  }
+
+  .logo {
+    font-size: 13px;
+  }
+
+  .nav {
+    gap: 13px;
+  }
+
+  .nav a {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 55px 0 45px;
+  }
+
+  .hero h1 {
+    font-size: 43px;
+    letter-spacing: -2px;
+  }
+
+  .heroInfo {
+    gap: 25px;
+  }
+
+  .heroVisual {
+    min-height: 290px;
+  }
+
+  .visualBox {
+    height: 280px;
+    padding: 18px;
+  }
+
+  .building {
+    transform: scale(0.8);
   }
 
   .kartat {
     grid-template-columns: 1fr;
+  }
+
+  .sectionHeading {
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .sectionHeading h2 {
+    font-size: 30px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 12px;
   }
 }
