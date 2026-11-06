@@ -4,21 +4,57 @@
 Ndërtimtari
 
 ## Qëllimi
-Të mundësohet përcaktimi i vendtakimit për konsultim me ekipin e Ndërtimtarisë.
+Të mundësohet përcaktimi i vendtakimit për konsultim me ekipin e Ndërtimtarisë, duke ofruar edhe përdorimin e GPS-it.
 
-## Funksionalitetet
-- Përdoruesi mund ta shkruajë vendtakimin manualisht.
-- Përdoruesi mund ta konfirmojë vendtakimin.
-- Përdoruesi mund të kërkojë vendndodhjen përmes GPS të pajisjes.
-- Shfaqet saktësia e vendndodhjes kur GPS funksionon.
-- Nëse përdoruesi refuzon lejen, shfaqet mesazhi përkatës.
-- Nëse kërkesa për GPS tejkalon kohën, shfaqet mesazhi Timeout.
+### Prova 1 – Kërkesa për leje dhe pranimi
 
-## Testimi
-1. Vendtakimi manual – funksionon.
-2. GPS me leje të dhënë – funksionon dhe shfaqet saktësia.
-3. GPS me leje të refuzuar – shfaqet mesazhi përkatës.
-4. GPS me Timeout – u testua me simulim dhe shfaqet mesazhi përkatës.
+**Hapat:**
+1. Hapet faqja `/java-08-test`.
+2. Kontrollohet që hapja e faqes nuk kërkon menjëherë leje për vendndodhje.
+3. Klikohet butoni "Përdor vendndodhjen time".
+4. Në kërkesën e shfletuesit pranohet leja për vendndodhje.
+
+**Pritshmëria:** Faqja hapet pa kërkuar leje. Leja kërkohet vetëm pasi përdoruesi klikon butonin GPS. Pas pranimit, aplikacioni merr vendndodhjen dhe shfaq saktësinë.
+
+**Çfarë pashë realisht:** Faqja u hap pa kërkesë për leje. Pas klikimit në butonin GPS dhe pranimit të lejes, u shfaq mesazhi "Pozicioni u mor." dhe saktësia e vendndodhjes.
+
+### Prova 2 – Refuzimi dhe përfundimi i pritjes
+
+**Hapat:**
+1. Refuzohet leja e vendndodhjes në shfletues.
+2. Klikohet butoni "Përdor vendndodhjen time".
+3. Kontrollohet mesazhi i refuzimit.
+4. Shkruhet një vendtakim manual në fushën përkatëse.
+5. Klikohet "Konfirmo vendtakimin".
+6. Simulohet përfundimi i kohës së pritjes për GPS.
+
+**Pritshmëria:** Pas refuzimit shfaqet mesazh që udhëzon përdoruesin të shkruajë vendtakimin manualisht. Vendtakimi manual mund të konfirmohet. Në rast të përfundimit të kohës së pritjes, shfaqet mesazhi Timeout.
+
+**Çfarë pashë realisht:** Pas refuzimit u shfaq mesazhi "Leja u refuzua. Shkruaj vendtakimin vetë." Vendtakimi manual u konfirmua. Me simulimin e gabimit Timeout u shfaq mesazhi "Koha mbaroi. Provo sërish ose shkruaj vendtakimin vetë."
+
+### Prova 3 – Privatësia e të dhënave
+
+**Hapat:**
+1. Kontrollohet komponenti `Vendtakimi.tsx`.
+2. Kontrollohet çfarë shfaqet në ndërfaqe pas marrjes së vendndodhjes.
+3. Kontrollohet raporti dhe dëshmitë që publikohen në GitHub.
+4. Kontrollohet që nuk janë vendosur sekrete ose koordinata reale në raport.
+
+**Pritshmëria:** Dëshmitë e publikuara nuk duhet të përmbajnë koordinata reale, adresë private ose sekrete. Aplikacioni shfaq vetëm informacionin e nevojshëm për funksionimin e provës.
+
+**Çfarë pashë realisht:** Në ndërfaqe shfaqet statusi i marrjes së vendndodhjes dhe saktësia në metra, jo koordinatat. Në raport përdoren të dhëna shembull dhe nuk përfshihen sekrete apo koordinata reale.
+
+### Prova me një hyrje të re
+
+**Hyrja që provova:** Prishtinë, lagjja Dardania – hyrja B.
+
+**Parashikimi im para klikimit:** Pritja ime ishte që aplikacioni ta konfirmojë vendtakimin e shkruar.
+
+**Çfarë pashë realisht:** Pas klikimit në butonin Konfirmo vendtakimin, aplikacioni shfaqi vendtakimin e shkruar si të konfirmuar.
+
+**Skedari dhe funksioni që e shpjegojnë:** `aplikacioni/src/components/Vendtakimi.tsx` – funksionet `konfirmoVendtakimin()` dhe `kerkoVendndodhjen()`.
+
+**Çfarë kuptova ose korrigjova:** Kuptova se përdoruesi mund ta përcaktojë vendtakimin manualisht edhe pa përdorur GPS.
 
 ## Skedarët kryesorë
 - aplikacioni/src/components/Vendtakimi.tsx
@@ -27,4 +63,5 @@ Të mundësohet përcaktimi i vendtakimit për konsultim me ekipin e Ndërtimtar
 - aplikacioni/src/app/udhetimi/[id]/page.tsx
 
 ## Përfundimi
-Funksionaliteti i vendtakimit është realizuar dhe testuar në aplikacionin Ndërtimtari.
+Funksionaliteti i vendtakimit është integruar në projektin Ndërtimtari. Janë testuar vendtakimi manual, marrja e vendndodhjes, refuzimi i lejes dhe përfundimi i kohës së pritjes.
+
