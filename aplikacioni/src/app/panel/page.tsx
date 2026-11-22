@@ -1,5 +1,8 @@
+import KerkesatAdmin from "@/components/KerkesatAdmin";
 import Link from "next/link";
 import Hyrja from "@/components/Hyrja";
+import GjendjaKerkesesLive from "@/components/GjendjaKerkesesLive";
+import FormaKerkese from "@/components/FormaKerkese";
 import {
   profiliIm,
   kerkesaIme,
@@ -73,41 +76,7 @@ export default async function Paneli({
             <section>
               <h2>Kërko ofertë për një projekt</h2>
 
-              <form action={krijoKerkeseAction}>
-                <label htmlFor="projektId">Zgjidh projektin</label>
-                <br />
-
-                <select
-                  id="projektId"
-                  name="projektId"
-                  defaultValue="1"
-                  required
-                >
-                  <option value="1">Projekti 1 – Ndërtim shtëpie</option>
-                  <option value="2">Projekti 2 – Objekt afarist</option>
-                  <option value="3">Projekti 3 – Renovim banese</option>
-                </select>
-
-                <br />
-                <br />
-
-                <label htmlFor="mesazhi">Përshkrimi i kërkesës</label>
-                <br />
-
-                <textarea
-                  id="mesazhi"
-                  name="mesazhi"
-                  rows={4}
-                  minLength={3}
-                  maxLength={500}
-                  required
-                  placeholder="Shkruaj çfarë pune ndërtimore të nevojitet."
-                />
-
-                <br />
-
-                <button type="submit">Dërgo kërkesën</button>
-              </form>
+              <FormaKerkese action={krijoKerkeseAction} />
             </section>
           )}
 
@@ -123,43 +92,18 @@ export default async function Paneli({
                 ID e projektit: <strong>{kerkesa.projekt_id}</strong>
               </p>
 
-              <p>
-                Statusi: <strong>{kerkesa.status}</strong>
-              </p>
+              <GjendjaKerkesesLive fillestare={kerkesa} />
 
-              <form action={ruajKerkeseAction}>
-                <input
-                  type="hidden"
-                  name="id"
-                  value={kerkesa.id}
-                />
-
-                <label htmlFor="mesazhi">Ndrysho përshkrimin</label>
-                <br />
-
-                <textarea
-                  id="mesazhi"
-                  name="mesazhi"
-                  rows={4}
-                  minLength={3}
-                  maxLength={500}
-                  required
-                  defaultValue={kerkesa.mesazhi}
-                />
-
-                <br />
-
-                <button type="submit">Ruaj ndryshimet</button>
-              </form>
+              <FormaKerkese
+                action={ruajKerkeseAction}
+                kerkesa={{ id: kerkesa.id, mesazhi: kerkesa.mesazhi }}
+              />
             </section>
           )}
 
-          {profili.roli === "admin" && (
-            <p>
-              Je i identifikuar si administrator. Formulari i klientit nuk
-              shfaqet për këtë rol.
-            </p>
-          )}
+         {profili.roli === "admin" && (
+  <KerkesatAdmin />
+)}
         </>
       )}
 

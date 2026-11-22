@@ -15,6 +15,7 @@ export type Kerkesa = {
   mesazhi: string;
   status: string;
   krijuar_me: string;
+  vende: number;
 };
 
 export async function profiliIm(): Promise<Profil | null> {
@@ -53,10 +54,11 @@ export async function kerkesaIme(): Promise<Kerkesa | null> {
   const sql = getSql();
 
   const rows = await sql`
-    SELECT id, projekt_id, mesazhi, status, krijuar_me
-    FROM kerkesa_oferta
-    WHERE github_id = ${p.id}
-    ORDER BY id DESC
+    SELECT k.id, k.projekt_id, k.mesazhi, k.status, k.krijuar_me, p.vende
+    FROM kerkesa_oferta k
+    JOIN projektet p ON p.id = k.projekt_id
+    WHERE k.github_id = ${p.id}
+    ORDER BY k.id DESC
     LIMIT 1
   `;
 

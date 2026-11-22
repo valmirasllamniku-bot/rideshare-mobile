@@ -137,17 +137,21 @@ export async function DELETE(request: Request) {
 
     const sql = getSql();
 
-    await sql`
-      DELETE FROM public.projektet_favoritet
-      WHERE github_id = ${profili.id}
-        AND projekt_id = ${projektId}
-    `;
+    const hequrat = await sql`
+  DELETE FROM public.projektet_favoritet
+  WHERE github_id = ${profili.id}
+    AND projekt_id = ${projektId}
+  RETURNING projekt_id
+`;
+
 
     return NextResponse.json({
-      success: true,
-      projektId,
-      favorite: false,
-    });
+  success: true,
+  projektId,
+  favorite: false,
+  deleted: hequrat.length
+});
+
   } catch (error) {
     console.error("Gabim gjatë heqjes së preferencës:", error);
     return NextResponse.json(

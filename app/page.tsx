@@ -1,4 +1,4 @@
-﻿import KartaUdhetimi from "../components/KartaUdhetimi";
+import KartaUdhetimi from "../src/components/KartaUdhetimi";
 
 const projektet = [
   {

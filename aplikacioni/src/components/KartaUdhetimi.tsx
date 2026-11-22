@@ -64,6 +64,9 @@ export default function KartaUdhetimi({ projekt }: Props) {
 
       if (!response.ok) {
         throw new Error(data.error || "Veprimi dështoi.");
+        if (typeof data.favorite === "boolean") {
+  setFavorit(data.favorite);
+}
       }
 
       setMesazhi(

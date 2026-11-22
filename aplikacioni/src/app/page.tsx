@@ -32,10 +32,13 @@ export default function Home() {
         const data = JSON.parse(ruajtura) as Projekt[];
 
         if (Array.isArray(data)) {
-          setProjektet(data);
-          setLoading(false);
-          setGabim(false);
           kaCache = true;
+          queueMicrotask(() => {
+            if (!aktiv) return;
+            setProjektet(data);
+            setLoading(false);
+            setGabim(false);
+          });
         }
       }
     } catch {
@@ -43,8 +46,11 @@ export default function Home() {
     }
 
     if (!navigator.onLine) {
-      if (!kaCache) setGabim(true);
-      setLoading(false);
+      queueMicrotask(() => {
+        if (!aktiv) return;
+        if (!kaCache) setGabim(true);
+        setLoading(false);
+      });
       return () => {
         aktiv = false;
       };
@@ -178,7 +184,7 @@ export default function Home() {
         )}
 
         {!loading && projektet.length === 0 && !gabim && (
-          <p className={styles.status}>Nuk ka projekte për t'u shfaqur.</p>
+          <p className={styles.status}>Nuk ka projekte për t&apos;u shfaqur.</p>
         )}
 
         {projektet.length > 0 && (

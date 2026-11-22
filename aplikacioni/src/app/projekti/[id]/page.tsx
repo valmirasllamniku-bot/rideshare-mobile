@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { gjejProjektin } from "../../../lib/udhetimet";
 import Vendtakimi from "@/components/Vendtakimi";
+import VendetLive from "@/components/VendetLive";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -25,7 +26,7 @@ export default async function ProjektiDetajet({ params }: Props) {
       <h1>{projekti.emri}</h1>
       <p><strong>Lokacioni:</strong> {projekti.lokacioni}</p>
       <p><strong>Çmimi:</strong> {projekti.cmimi}</p>
-      <p><strong>Vende të lira:</strong> {projekti.vende}</p>
+      <VendetLive projektiId={projekti.id} fillestare={projekti.vende} />
       <p><strong>Përshkrimi:</strong> {projekti.pershkrimi}</p>
 
       <Vendtakimi />
