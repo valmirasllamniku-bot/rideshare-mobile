@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Hyrja from "../components/Hyrja";
 import { useEffect, useState } from "react";
@@ -92,11 +92,10 @@ export default function Home() {
 
         <nav className={styles.nav}>
           <a href="#projektet">Projektet</a>
-          <a href="/panel">Paneli i klientit</a>
+          <a href="/panel">Paneli</a>
+          <Hyrja brenda={false} />
         </nav>
       </header>
-
-      <Hyrja brenda={false} />
 
       <section className={styles.hero}>
         <div className={styles.heroContent}>

@@ -8,6 +8,7 @@
 - Faqja e projektit e rilexon numrin e vendeve nga Neon çdo 5 sekonda.
 - Pranimi e ndryshon statusin dhe ul vendet në të njëjtën pyetje të databazës. Një kërkesë e pranuar më parë nuk pranohet përsëri; ulja e vendeve kërkon që numri të jetë mbi zero.
 - Gjatë ndërprerjes, pamja e fundit ruhet dhe shfaqet njoftimi i rilidhjes. Formulari i klientit dhe pranimi i administratorit bllokohen offline.
+- Service Worker-i nuk cache-on asetet e Next.js ose përgjigjet private të API-së; në development çaktivizohet që të mos përdoren skedarë të vjetër dhe të shkaktohet hydration mismatch.
 
 ## Skedarët kryesorë
 

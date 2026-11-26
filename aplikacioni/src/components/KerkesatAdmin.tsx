@@ -76,30 +76,34 @@ export default function KerkesatAdmin() {
     };
   }, []);
 
-  async function pranoKerkesen(id: number) {
+  async function veproKerkesen(id: number, veprimi: "prano" | "refuzo") {
+    if (
+      veprimi === "refuzo" &&
+      !window.confirm("A dëshiron ta refuzosh këtë kërkesë? Klienti do të informohet për refuzimin.")
+    ) {
+      return;
+    }
+
     setDukePranuar(id);
     setGabimi("");
 
     try {
       const res = await fetch("/api/kerkesat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, veprimi }),
       });
-
       const data = await res.json();
 
       if (!res.ok) {
-        setGabimi(data.error || "Kërkesa nuk u pranua.");
+        setGabimi(data.error || "Veprimi nuk u krye.");
         return;
       }
 
       await ngarkoKerkesat();
     } catch {
       setOnline(false);
-      setGabimi("Nuk u arrit pranimi i kërkesës. Kontrollo lidhjen.");
+      setGabimi("Veprimi nuk u krye. Kontrollo lidhjen.");
     } finally {
       setDukePranuar(null);
     }
@@ -160,7 +164,9 @@ export default function KerkesatAdmin() {
                   ? "U pranua"
                   : kerkesa.status === "perfunduar"
                     ? "Përfunduar"
-                    : "E re"}
+                    : kerkesa.status === "refuzuar"
+                      ? "U refuzua"
+                      : "E re"}
               </p>
 
               <p>
@@ -174,22 +180,44 @@ export default function KerkesatAdmin() {
 
               {(kerkesa.status === "e_re" ||
                 kerkesa.status === "ne pritje") && (
-                <button
-                  onClick={() => pranoKerkesen(kerkesa.id)}
-                  disabled={dukePranuar !== null || !online}
-                  style={{
-                    padding: "10px 16px",
-                    borderRadius: 8,
-                    border: "none",
-                    background: "#2563eb",
-                    color: "white",
-                    cursor: "pointer",
-                  }}
-                >
-                  {dukePranuar === kerkesa.id
-                    ? "Duke pranuar..."
-                    : "Prano kërkesën"}
-                </button>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {kerkesa.vende > 0 ? (
+                    <button
+                      onClick={() => veproKerkesen(kerkesa.id, "prano")}
+                      disabled={dukePranuar !== null || !online}
+                      style={{
+                        padding: "10px 16px",
+                        borderRadius: 8,
+                        border: "none",
+                        background: "#2563eb",
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {dukePranuar === kerkesa.id ? "Duke përditësuar..." : "Prano kërkesën"}
+                    </button>
+                  ) : (
+                    <p role="status">Nuk ka vende të lira për këtë projekt.</p>
+                  )}
+                  <button
+                    onClick={() => veproKerkesen(kerkesa.id, "refuzo")}
+                    disabled={dukePranuar !== null || !online}
+                    style={{
+                      padding: "10px 16px",
+                      borderRadius: 8,
+                      border: "1px solid #b91c1c",
+                      background: "white",
+                      color: "#b91c1c",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {dukePranuar === kerkesa.id
+                      ? "Duke përditësuar..."
+                      : kerkesa.vende > 0
+                        ? "Refuzo kërkesën"
+                        : "Refuzo (nuk ka vende të lira)"}
+                  </button>
+                </div>
               )}
             </article>
           ))}

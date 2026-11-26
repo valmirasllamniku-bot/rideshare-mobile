@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS kerkesa_oferta (
   github_id TEXT NOT NULL REFERENCES profilet(github_id),
   mesazhi TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'e_re'
-    CHECK (status IN ('e_re', 'ne_shqyrtim', 'perfunduar')),
+    CHECK (status IN ('e_re', 'ne_shqyrtim', 'perfunduar', 'refuzuar')),
   krijuar_me TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

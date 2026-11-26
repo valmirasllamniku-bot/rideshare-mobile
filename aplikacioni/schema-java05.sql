@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS kerkesa_oferta (
     projekt_id INTEGER NOT NULL REFERENCES projektet(id),
     github_id TEXT NOT NULL REFERENCES profilet(github_id),
     mesazhi TEXT NOT NULL,
-    status TEXT NOT NULL DEFAULT 'ne pritje',
+    status TEXT NOT NULL DEFAULT 'ne pritje' CHECK (status IN ('e_re', 'ne pritje', 'ne_shqyrtim', 'perfunduar', 'refuzuar')),
     krijuar_me TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

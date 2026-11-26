@@ -84,7 +84,16 @@ export default function GjendjaKerkesesLive({
     };
   }, []);
 
-  const statusi = gjendja.status === "ne_shqyrtim" ? "U pranua" : "Në pritje";
+  const statusi =
+    gjendja.status === "ne_shqyrtim"
+      ? "U pranua"
+      : gjendja.status === "refuzuar"
+        ? gjendja.vende < 1
+          ? "U refuzua – nuk ka vende të lira"
+          : "U refuzua"
+        : gjendja.status === "perfunduar"
+          ? "Përfunduar"
+          : "Në pritje";
 
   return (
     <div aria-live="polite">

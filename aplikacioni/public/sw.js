@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "ndertimtari-v4";
+const CACHE_NAME = "ndertimtari-v5";
 
 const FILES_TO_CACHE = [
   "/",
@@ -43,6 +43,15 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (url.origin !== self.location.origin) return;
+
+  if (
+    url.pathname.startsWith("/_next/") ||
+    url.pathname === "/_next" ||
+    url.pathname === "/sw.js" ||
+    url.searchParams.has("_rsc")
+  ) {
+    return;
+  }
 
   if (
     url.pathname === "/api/udhetimet" ||
@@ -110,6 +119,9 @@ self.addEventListener("fetch", (event) => {
 
     return;
   }
+
+  // Authenticated API responses must not be cached between browser sessions.
+  if (url.pathname.startsWith("/api/")) return;
 
   if (request.mode === "navigate") {
     event.respondWith(

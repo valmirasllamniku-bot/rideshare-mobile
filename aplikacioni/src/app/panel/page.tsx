@@ -3,6 +3,7 @@ import Link from "next/link";
 import Hyrja from "@/components/Hyrja";
 import GjendjaKerkesesLive from "@/components/GjendjaKerkesesLive";
 import FormaKerkese from "@/components/FormaKerkese";
+import NjoftimetKlient from "@/components/NjoftimetKlient";
 import {
   profiliIm,
   kerkesaIme,
@@ -49,7 +50,11 @@ export default async function Paneli({
 
   return (
     <main className="app-shell">
-      <h1>Paneli i klientit – Ndërtimtari</h1>
+      <h1>
+        {profili?.roli === "admin"
+          ? "Paneli i administratorit – Ndërtimtari"
+          : "Paneli i klientit – Ndërtimtari"}
+      </h1>
 
       {m && mesazhet[m] && (
         <p role="status">{mesazhet[m]}</p>
@@ -71,6 +76,8 @@ export default async function Paneli({
           <p>
             ID e llogarisë GitHub: <code>{profili.id}</code>
           </p>
+
+          {profili.roli === "klient" && <NjoftimetKlient />}
 
           {profili.roli === "klient" && !kerkesa && (
             <section>
@@ -98,6 +105,12 @@ export default async function Paneli({
                 action={ruajKerkeseAction}
                 kerkesa={{ id: kerkesa.id, mesazhi: kerkesa.mesazhi }}
               />
+              {(kerkesa.status === "ne_shqyrtim" || kerkesa.status === "perfunduar" || kerkesa.status === "refuzuar") && (
+                <section>
+                  <h3>Dërgo kërkesë të re</h3>
+                  <FormaKerkese action={krijoKerkeseAction} />
+                </section>
+              )}
             </section>
           )}
 

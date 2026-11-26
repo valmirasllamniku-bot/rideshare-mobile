@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 import { profiliIm } from "@/lib/lejet";
 import { getSql } from "@/lib/db";
@@ -24,7 +23,6 @@ export async function GET() {
     }
 
     const sql = getSql();
-
     const kerkesat = await sql`
       SELECT
         k.id,
@@ -47,13 +45,13 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Gabim gjatë marrjes së kërkesave:", error);
-
     return NextResponse.json(
       { error: "Kërkesat nuk mund të merren." },
       { status: 500 }
     );
   }
 }
+
 export async function POST(request: Request) {
   try {
     const profili = await profiliIm();
@@ -67,13 +65,14 @@ export async function POST(request: Request) {
 
     if (profili.roli !== "admin") {
       return NextResponse.json(
-        { error: "Nuk ke leje për pranimin e kërkesave." },
+        { error: "Nuk ke leje për trajtimin e kërkesave." },
         { status: 403 }
       );
     }
 
     const body = await request.json();
     const id = Number(body.id);
+    const veprimi = body.veprimi ?? "prano";
 
     if (!Number.isSafeInteger(id) || id < 1) {
       return NextResponse.json(
@@ -82,11 +81,48 @@ export async function POST(request: Request) {
       );
     }
 
+    if (veprimi !== "prano" && veprimi !== "refuzo") {
+      return NextResponse.json(
+        { error: "Veprimi nuk është valid." },
+        { status: 400 }
+      );
+    }
+
     const sql = getSql();
 
-    const rezultat = await sql`
+    if (veprimi === "refuzo") {
+      const refuzimi = await sql`
+        WITH pergjigjja AS (
+          UPDATE public.kerkesa_oferta
+          SET status = 'refuzuar'
+          WHERE id = ${id}
+            AND status IN ('e_re', 'ne pritje')
+          RETURNING id, projekt_id, github_id, status
+        ), njoftimi AS (
+          INSERT INTO public.njoftimet (github_id, kerkesa_id, lloji)
+          SELECT github_id, id, 'refuzuar'
+          FROM pergjigjja
+          ON CONFLICT (kerkesa_id) DO NOTHING
+          RETURNING id
+        )
+        SELECT p.id, p.projekt_id, p.status, n.id AS njoftim_id
+        FROM pergjigjja p
+        LEFT JOIN njoftimi n ON TRUE
+      `;
+
+      if (refuzimi.length === 0) {
+        return NextResponse.json(
+          { error: "Kërkesa është trajtuar më parë ose nuk u gjet." },
+          { status: 409 }
+        );
+      }
+
+      return NextResponse.json({ success: true, kerkesa: refuzimi[0] });
+    }
+
+    const rezultati = await sql`
       WITH target AS (
-        SELECT id, projekt_id
+        SELECT id, projekt_id, github_id
         FROM public.kerkesa_oferta
         WHERE id = ${id}
           AND status IN ('e_re', 'ne pritje')
@@ -106,27 +142,32 @@ export async function POST(request: Request) {
         FROM target t
         JOIN zbritja z ON z.id = t.projekt_id
         WHERE k.id = t.id
-        RETURNING k.id, k.projekt_id, k.status
+        RETURNING k.id, k.projekt_id, k.status, k.github_id
+      ),
+      njoftimi AS (
+        INSERT INTO public.njoftimet (github_id, kerkesa_id, lloji)
+        SELECT github_id, id, 'pranuar'
+        FROM pranimi
+        ON CONFLICT (kerkesa_id) DO NOTHING
+        RETURNING id
       )
-      SELECT * FROM pranimi
+      SELECT p.id, p.projekt_id, p.status, n.id AS njoftim_id
+      FROM pranimi p
+      LEFT JOIN njoftimi n ON TRUE
     `;
 
-    if (rezultat.length === 0) {
+    if (rezultati.length === 0) {
       return NextResponse.json(
         { error: "Kërkesa nuk u pranua. Mund të mos ketë vende të lira ose të jetë trajtuar më parë." },
         { status: 409 }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      kerkesa: rezultat[0],
-    });
+    return NextResponse.json({ success: true, kerkesa: rezultati[0] });
   } catch (error) {
-    console.error("Gabim gjatë pranimit të kërkesës:", error);
-
+    console.error("Gabim gjatë trajtimit të kërkesës:", error);
     return NextResponse.json(
-      { error: "Kërkesa nuk mund të pranohet." },
+      { error: "Kërkesa nuk mund të përditësohet." },
       { status: 500 }
     );
   }
