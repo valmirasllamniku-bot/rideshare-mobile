@@ -10,7 +10,7 @@ export async function GET() {
 
     if (!profili) {
       return NextResponse.json(
-        { error: "Duhet të kyçesh me GitHub." },
+        { error: "Kyçu në llogarinë tënde për të vazhduar." },
         { status: 401 }
       );
     }
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
     if (!profili) {
       return NextResponse.json(
-        { error: "Duhet të kyçesh me GitHub." },
+        { error: "Kyçu në llogarinë tënde për të vazhduar." },
         { status: 401 }
       );
     }
@@ -110,7 +110,7 @@ export async function DELETE(request: Request) {
 
     if (!profili) {
       return NextResponse.json(
-        { error: "Duhet të kyçesh me GitHub." },
+        { error: "Kyçu në llogarinë tënde për të vazhduar." },
         { status: 401 }
       );
     }

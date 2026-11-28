@@ -55,7 +55,7 @@ export default function Hyrja({ brenda }: { brenda: boolean }) {
               : "GitHub aktivizohet pasi të shtohen kredencialet OAuth në server."}
         </p>
       )}
-      <p className="auth-role-note">Roli admin caktohet vetëm nga profili i autorizuar, jo nga zgjedhja e butonit.</p>
+      <p className="auth-role-note">Google dhe GitHub janë mënyrat e hyrjes. Aplikacioni hap panelin sipas rolit të caktuar për llogarinë: klient ose administrator.</p>
     </section>
   );
 }

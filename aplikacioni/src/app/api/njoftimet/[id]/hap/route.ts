@@ -11,7 +11,7 @@ export async function POST(
   try {
     const profili = await profiliIm();
     if (!profili) {
-      return NextResponse.json({ error: "Duhet të kyçesh me GitHub." }, { status: 401, headers: { "Cache-Control": "no-store" } });
+      return NextResponse.json({ error: "Kyçu në llogarinë tënde për të vazhduar." }, { status: 401, headers: { "Cache-Control": "no-store" } });
     }
 
     const { id: idTekst } = await context.params;
