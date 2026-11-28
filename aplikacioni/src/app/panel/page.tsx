@@ -18,7 +18,7 @@ import {
 export const dynamic = "force-dynamic";
 
 const mesazhet: Record<string, string> = {
-  hyr: "Hyr me GitHub para se të vazhdosh.",
+  hyr: "Hyr me Google ose GitHub për të vazhduar.",
   ndaluar: "Nuk ke leje për këtë kërkesë. Të dhënat nuk u ndryshuan.",
   fushe: "Kontrollo të dhënat. Mesazhi duhet të ketë 3 deri në 500 karaktere.",
   projekt: "Projekti i zgjedhur nuk u gjet në databazë.",
@@ -50,6 +50,7 @@ export default async function Paneli({
 
   return (
     <main className="app-shell">
+      <Link className="app-back-link" href="/">← Faqja kryesore</Link>
       <h1>
         {profili?.roli === "admin"
           ? "Paneli i administratorit – Ndërtimtari"
@@ -57,30 +58,30 @@ export default async function Paneli({
       </h1>
 
       {m && mesazhet[m] && (
-        <p role="status">{mesazhet[m]}</p>
+        <p className="app-notice" role="status">{mesazhet[m]}</p>
       )}
 
       {gabimDatabaze && (
-        <p role="alert">
+        <p className="app-notice app-notice-error" role="alert">
           Ka ndodhur një gabim. Kontrollo konfigurimin dhe terminalin.
         </p>
       )}
 
       {!gabimDatabaze && profili && (
         <>
-          <p>
+          <p className="app-welcome">
             Përshëndetje, {profili.emri}. Roli yt:{" "}
             <strong>{profili.roli}</strong>.
           </p>
 
-          <p>
-            ID e llogarisë GitHub: <code>{profili.id}</code>
+          <p className="app-account-id">
+            ID e llogarisë: <code>{profili.id}</code>
           </p>
 
           {profili.roli === "klient" && <NjoftimetKlient />}
 
           {profili.roli === "klient" && !kerkesa && (
-            <section>
+            <section className="app-card">
               <h2>Kërko ofertë për një projekt</h2>
 
               <FormaKerkese action={krijoKerkeseAction} />
@@ -88,7 +89,7 @@ export default async function Paneli({
           )}
 
           {profili.roli === "klient" && kerkesa && (
-            <section>
+            <section className="app-card">
               <h2>Kërkesa jote për ofertë</h2>
 
               <p>
@@ -106,7 +107,7 @@ export default async function Paneli({
                 kerkesa={{ id: kerkesa.id, mesazhi: kerkesa.mesazhi }}
               />
               {(kerkesa.status === "ne_shqyrtim" || kerkesa.status === "perfunduar" || kerkesa.status === "refuzuar") && (
-                <section>
+                <section className="app-card app-card-nested">
                   <h3>Dërgo kërkesë të re</h3>
                   <FormaKerkese action={krijoKerkeseAction} />
                 </section>
@@ -114,19 +115,17 @@ export default async function Paneli({
             </section>
           )}
 
-         {profili.roli === "admin" && (
-  <KerkesatAdmin />
-)}
+          {profili.roli === "admin" && <KerkesatAdmin />}
         </>
       )}
 
       {!profili && !gabimDatabaze && (
-        <p>Hyr me GitHub për të dërguar ose ndryshuar kërkesën tënde.</p>
+        <p className="app-notice">Hyr me Google ose GitHub. Paneli hapet sipas rolit të lidhur me llogarinë tënde.</p>
       )}
 
       <Hyrja brenda={Boolean(profili)} />
 
-      <p>
+      <p className="app-footer-link">
         <Link href="/">Kthehu te projektet</Link>
       </p>
     </main>

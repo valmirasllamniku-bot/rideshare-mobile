@@ -1,4 +1,4 @@
-import KartaUdhetimi from "../src/components/KartaUdhetimi";
+﻿import KartaUdhetimi from "../src/components/KartaUdhetimi";
 
 const projektet = [
   {
@@ -32,7 +32,6 @@ export default function Home() {
     <main>
       <h1>Ndërtimtari</h1>
       <p>Zgjidh projektin që dëshiron të realizosh.</p>
-
       {projektet.map((projekt) => (
         <KartaUdhetimi key={projekt.id} projekt={projekt} />
       ))}

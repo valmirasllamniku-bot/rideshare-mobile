@@ -38,14 +38,27 @@ export default function Pwa() {
         };
       }
 
+      let dukeRifreskuar = false;
+      const kurNdryshonKontrolluesi = () => {
+        if (dukeRifreskuar) return;
+        dukeRifreskuar = true;
+        window.location.reload();
+      };
+
+      navigator.serviceWorker.addEventListener("controllerchange", kurNdryshonKontrolluesi);
       navigator.serviceWorker
-        .register("/sw.js")
+        .register("/sw.js", { updateViaCache: "none" })
         .then((registration) => {
           console.log("Service Worker aktiv:", registration.scope);
+          return registration.update();
         })
         .catch((error) => {
           console.error("Gabim në Service Worker:", error);
         });
+
+      return () => {
+        navigator.serviceWorker.removeEventListener("controllerchange", kurNdryshonKontrolluesi);
+      };
     }
   }, []);
 

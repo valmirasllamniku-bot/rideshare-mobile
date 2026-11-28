@@ -395,51 +395,67 @@
   }
 }
 
-/* Butoni i projekteve te preferuara */
+/* Butoni për ruajtjen e projektit */
 .kartat :global(.karta-udhetimit) {
   position: relative;
 }
 
 .kartat :global(.karta-udhetimit h2) {
-  padding-right: 38px;
+  padding-right: 96px;
 }
 
-.kartat :global(.butoni-favorit) {
+.kartat :global(.project-save-button) {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 42px;
-  height: 42px;
+  min-height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #f1d5d5;
-  border-radius: 50%;
-  background: #fff5f5;
-  color: #d93636;
-  font-size: 27px;
-  line-height: 1;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid #e7ded2;
+  border-radius: 999px;
+  background: #fff;
+  color: #51483e;
+  font-size: 12px;
+  font-weight: 750;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.kartat :global(.butoni-favorit:hover) {
-  background: #ffe2e2;
-  transform: scale(1.1);
+.kartat :global(.project-save-button:hover) {
+  background: #fff8ec;
+  border-color: #dfbd80;
+  transform: translateY(-1px);
 }
 
-.kartat :global(.butoni-favorit[aria-pressed="true"]) {
-  background: #ffe5e5;
-  color: #e32636;
-  border-color: #e32636;
+.kartat :global(.project-save-button[aria-pressed="true"]) {
+  background: #fff3d9;
+  color: #79530d;
+  border-color: #d7a749;
 }
 
-.kartat :global(.butoni-favorit:disabled) {
+.kartat :global(.project-save-button:disabled) {
   opacity: 0.6;
   cursor: wait;
 }
 
-.kartat :global(.mesazhi-favorit) {
+.kartat :global(.project-save-button svg) {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kartat :global(.project-save-button[aria-pressed="true"] svg) {
+  fill: #f2d48d;
+}
+
+.kartat :global(.project-save-message) {
   margin-top: 12px;
   font-size: 13px;
   color: #25834a;

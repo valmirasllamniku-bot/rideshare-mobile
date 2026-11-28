@@ -138,7 +138,7 @@ export default function NjoftimetKlient() {
   const toast = radhaToast[0] ?? null;
 
   return (
-    <section aria-live="polite" style={{ marginTop: 24 }}>
+    <section className="client-notifications" aria-live="polite">
       <h2>Njoftimet</h2>
       <p>Njoftime të palexuara: <strong>{tePalexuara}</strong></p>
       {gabimi && <p role="alert">{gabimi}</p>}
@@ -146,26 +146,25 @@ export default function NjoftimetKlient() {
       {!dukeNgarkuar && njoftimet.length === 0 && <p>Nuk ke ende njoftime.</p>}
 
       {toast && (
-        <div role="status" style={{ border: "1px solid #2563eb", padding: 12, borderRadius: 8, marginBottom: 12 }}>
+        <div className="notification-toast" role="status">
           <strong>Njoftim i ri</strong>
           <p>{tekstiNjoftimit(toast.lloji)}</p>
           <button onClick={() => void hapNjoftimin(toast.id)} disabled={dukeHapur !== null}>
             Hape kërkesën
           </button>
-          <button onClick={() => setRadhaToast((radha) => radha.slice(1))} style={{ marginLeft: 8 }}>
+          <button className="notification-dismiss" onClick={() => setRadhaToast((radha) => radha.slice(1))}>
             Mbyll
           </button>
         </div>
       )}
 
       {njoftimet.length > 0 && (
-        <ul style={{ display: "grid", gap: 8, paddingLeft: 20 }}>
+        <ul>
           {njoftimet.map((njoftim) => (
             <li key={njoftim.id}>
               <button
                 onClick={() => void hapNjoftimin(njoftim.id)}
                 disabled={dukeHapur !== null}
-                style={{ textAlign: "left", padding: 10, width: "100%" }}
               >
                 <strong>{njoftim.lexuar_me === null ? "E palexuar · " : "E lexuar · "}</strong>
                 {tekstiNjoftimit(njoftim.lloji)} {njoftim.projekti} · Kërkesa #{njoftim.kerkesa_id}
@@ -178,7 +177,7 @@ export default function NjoftimetKlient() {
       )}
 
       {detaje && (
-        <article style={{ marginTop: 16, border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
+        <article className="notification-details">
           <h3>Kërkesa #{detaje.kerkesa_id} · {detaje.projekti}</h3>
           <p>Statusi: <strong>{detaje.status === "ne_shqyrtim" ? "U pranua" : detaje.status === "refuzuar" ? "U refuzua" : detaje.status}</strong></p>
           <p>{detaje.mesazhi}</p>

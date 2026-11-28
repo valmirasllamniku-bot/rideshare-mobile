@@ -1,6 +1,5 @@
 "use client";
 
-import Hyrja from "../components/Hyrja";
 import { useEffect, useState } from "react";
 import KartaUdhetimi from "../components/KartaUdhetimi";
 import styles from "./page.module.css";
@@ -93,7 +92,6 @@ export default function Home() {
         <nav className={styles.nav}>
           <a href="#projektet">Projektet</a>
           <a href="/panel">Paneli</a>
-          <Hyrja brenda={false} />
         </nav>
       </header>
 

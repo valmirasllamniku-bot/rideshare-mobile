@@ -30,6 +30,7 @@ export default function FormaKerkese({
 
   return (
     <form
+      className="app-form"
       action={action}
       onSubmit={(event) => {
         if (!navigator.onLine) {
@@ -42,7 +43,6 @@ export default function FormaKerkese({
         <>
           <input type="hidden" name="id" value={kerkesa.id} />
           <label htmlFor="mesazhi">Ndrysho përshkrimin</label>
-          <br />
           <textarea
             id="mesazhi"
             name="mesazhi"
@@ -52,7 +52,6 @@ export default function FormaKerkese({
             required
             defaultValue={kerkesa.mesazhi}
           />
-          <br />
           <button type="submit" disabled={!online}>Ruaj ndryshimet</button>
         </>
       ) : (
@@ -62,16 +61,13 @@ export default function FormaKerkese({
           ) : (
             <>
               <label htmlFor="projektId">Zgjidh projektin</label>
-              <br />
-              <select id="projektId" name="projektId" defaultValue="1" required>
+                  <select id="projektId" name="projektId" defaultValue="1" required>
                 <option value="1">Projekti 1 – Ndërtim shtëpie</option>
                 <option value="2">Projekti 2 – Objekt afarist</option>
                 <option value="3">Projekti 3 – Renovim banese</option>
               </select>
             </>
           )}
-          <br />
-          <br />
           <label htmlFor="mesazhi">Përshkrimi i kërkesës</label>
           <br />
           <textarea

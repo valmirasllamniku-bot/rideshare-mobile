@@ -17,12 +17,18 @@ export default async function KerkesaPage({
   if (!projekti) notFound();
 
   return (
-    <main style={{ maxWidth: 640, margin: "40px auto", padding: 20 }}>
-      <h1>Kërko ofertë</h1>
-      <p>Projekti: <strong>{projekti.emri}</strong></p>
-      <p>Vende të lira: <strong>{projekti.vende}</strong></p>
-      <FormaKerkese action={krijoKerkeseAction} projektId={String(projekti.id)} />
-      <p><Link href={`/projekti/${projekti.id}`}>Kthehu te projekti</Link></p>
+    <main className="app-shell offer-page">
+      <Link className="app-back-link" href={`/projekti/${projekti.id}`}>← Kthehu te projekti</Link>
+      <header className="offer-heading">
+        <span>KËRKESË PËR OFERTË</span>
+        <h1>Kërko ofertë</h1>
+        <p>Na trego pak për projektin tënd dhe do të të kontaktojmë.</p>
+      </header>
+      <section className="app-card">
+        <p>Projekti: <strong>{projekti.emri}</strong></p>
+        <p>Vende të lira: <strong>{projekti.vende}</strong></p>
+        <FormaKerkese action={krijoKerkeseAction} projektId={String(projekti.id)} />
+      </section>
     </main>
   );
 }

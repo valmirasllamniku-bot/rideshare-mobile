@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -20,126 +20,65 @@ export default function KartaUdhetimi({ projekt }: Props) {
   const [mesazhi, setMesazhi] = useState("");
 
   useEffect(() => {
+    let aktiv = true;
     async function merrFavoritet() {
       try {
-        const response = await fetch("/api/favoritet", {
-          cache: "no-store",
-        });
-
+        const response = await fetch("/api/favoritet", { cache: "no-store" });
         if (!response.ok) return;
-
         const ids: number[] = await response.json();
-
-        setFavorit(ids.includes(Number(projekt.id)));
-      } catch (error) {
-        console.error("Gabim gjatë marrjes së preferencave:", error);
+        if (aktiv) setFavorit(ids.includes(Number(projekt.id)));
+      } catch {
+        // Preferencat janë opsionale; projekti mbetet i shfaqur edhe pa to.
       }
     }
-
-    merrFavoritet();
+    void merrFavoritet();
+    return () => { aktiv = false; };
   }, [projekt.id]);
 
   async function ndryshoFavoritin() {
     if (dukeRuajtur) return;
-
     const gjendjaEmeparshme = favorit;
     const gjendjaRe = !favorit;
-
     setFavorit(gjendjaRe);
     setDukeRuajtur(true);
     setMesazhi("");
-
     try {
       const response = await fetch("/api/favoritet", {
         method: gjendjaRe ? "POST" : "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          projektId: projekt.id,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projektId: projekt.id }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Veprimi dështoi.");
-        if (typeof data.favorite === "boolean") {
-  setFavorit(data.favorite);
-}
-      }
-
-      setMesazhi(
-        gjendjaRe
-          ? "Projekti u ruajt te të preferuarat."
-          : "Projekti u hoq nga të preferuarat."
-      );
+      if (!response.ok) throw new Error(data.error || "Veprimi dështoi.");
+      setMesazhi(gjendjaRe ? "U ruajt te të preferuarat." : "U hoq nga të preferuarat.");
     } catch (error) {
       setFavorit(gjendjaEmeparshme);
-
-      setMesazhi(
-        error instanceof Error
-          ? error.message
-          : "Ndodhi një gabim. Provo përsëri."
-      );
+      setMesazhi(error instanceof Error ? error.message : "Ndodhi një gabim. Provo përsëri.");
     } finally {
       setDukeRuajtur(false);
     }
   }
 
   return (
-    <article
-  className="karta-udhetimit"
-  style={{ position: "relative" }}
->
-      <button
-        type="button"
-        className="butoni-favorit"
-        style={{
-  position: "absolute",
-  top: "16px",
-  right: "16px",
-  width: "42px",
-  height: "42px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  border: "1px solid #e32636",
-  borderRadius: "50%",
-  background: "#fff5f5",
-  color: "#e32636",
-  fontSize: "28px",
-  cursor: "pointer",
-  zIndex: 2,
-}}
-
-        onClick={ndryshoFavoritin}
-        disabled={dukeRuajtur}
-        aria-label={
-          favorit
-            ? "Hiqe nga të preferuarat"
-            : "Shto te të preferuarat"
-        }
-        aria-pressed={favorit}
-      >
-        {favorit ? "♥" : "♡"}
+    <article className="karta-udhetimit">
+      <button type="button" className="project-save-button" onClick={ndryshoFavoritin} disabled={dukeRuajtur} aria-label={favorit ? "Hiqe projektin nga lista e ruajtur" : "Ruaje projektin"} aria-pressed={favorit}>
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+          <path d="M6.75 3.75h10.5a1.5 1.5 0 0 1 1.5 1.5v15l-6.75-4.5-6.75 4.5v-15a1.5 1.5 0 0 1 1.5-1.5Z" />
+        </svg>
+        <span>{dukeRuajtur ? "Duke ruajtur" : favorit ? "Ruajtur" : "Ruaje"}</span>
       </button>
-
+      <span className="project-card-kicker">PROJEKT NDËRTIMI</span>
       <h2>{projekt.titulli}</h2>
-      <p>{projekt.pershkrimi}</p>
-      <p>Lokacioni: {projekt.lokacioni}</p>
-      <p>Çmimi: {projekt.cmimi}</p>
-      <p>Vende të lira: {projekt.vende}</p>
-
-      <Link href={`/udhetimi/${projekt.id}`}>
-        Shiko projektin
+      <p className="project-card-description">{projekt.pershkrimi}</p>
+      <dl className="project-card-details">
+        <div><dt>Lokacioni</dt><dd>{projekt.lokacioni}</dd></div>
+        <div><dt>Çmimi</dt><dd>{projekt.cmimi}</dd></div>
+        <div><dt>Vende të lira</dt><dd>{projekt.vende}</dd></div>
+      </dl>
+      <Link className="project-card-link" href={`/projekti/${projekt.id}`}>
+        Shiko projektin <span aria-hidden="true">→</span>
       </Link>
-
-      {mesazhi && (
-        <p className="mesazhi-favorit" role="status">
-          {mesazhi}
-        </p>
-      )}
+      {mesazhi && <p className="project-save-message" role="status">{mesazhi}</p>}
     </article>
   );
 }

@@ -114,39 +114,33 @@ export default function KerkesatAdmin() {
   }
 
   return (
-    <section style={{ marginTop: 24 }}>
+    <section className="admin-panel">
       <h2>Kërkesat e klientëve</h2>
 
       <p>
         Statusi i lidhjes:{" "}
-        <strong style={{ color: online ? "green" : "red" }}>
+        <strong className={online ? "admin-status-online" : "admin-status-offline"}>
           {online ? "Online" : "Offline"}
         </strong>
       </p>
 
       {!online && (
-        <p style={{ color: "#b45309" }}>
+        <p className="admin-warning">
           Lidhja u ndërpre. Të dhënat e fundit mbeten në ekran.
         </p>
       )}
 
       {gabimi && (
-        <p style={{ color: "red" }}>{gabimi}</p>
+        <p className="app-notice app-notice-error">{gabimi}</p>
       )}
 
       {kerkesat.length === 0 ? (
         <p>Ende nuk ka kërkesa për projekte.</p>
       ) : (
-        <div style={{ display: "grid", gap: 16 }}>
+        <div className="admin-request-list">
           {kerkesat.map((kerkesa) => (
             <article
               key={kerkesa.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: 12,
-                padding: 16,
-                background: "#fff",
-              }}
             >
               <h3>{kerkesa.projekti}</h3>
 
@@ -180,19 +174,12 @@ export default function KerkesatAdmin() {
 
               {(kerkesa.status === "e_re" ||
                 kerkesa.status === "ne pritje") && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <div className="admin-request-actions">
                   {kerkesa.vende > 0 ? (
                     <button
                       onClick={() => veproKerkesen(kerkesa.id, "prano")}
                       disabled={dukePranuar !== null || !online}
-                      style={{
-                        padding: "10px 16px",
-                        borderRadius: 8,
-                        border: "none",
-                        background: "#2563eb",
-                        color: "white",
-                        cursor: "pointer",
-                      }}
+                      className="admin-accept"
                     >
                       {dukePranuar === kerkesa.id ? "Duke përditësuar..." : "Prano kërkesën"}
                     </button>
@@ -202,14 +189,7 @@ export default function KerkesatAdmin() {
                   <button
                     onClick={() => veproKerkesen(kerkesa.id, "refuzo")}
                     disabled={dukePranuar !== null || !online}
-                    style={{
-                      padding: "10px 16px",
-                      borderRadius: 8,
-                      border: "1px solid #b91c1c",
-                      background: "white",
-                      color: "#b91c1c",
-                      cursor: "pointer",
-                    }}
+                    className="admin-reject"
                   >
                     {dukePranuar === kerkesa.id
                       ? "Duke përditësuar..."

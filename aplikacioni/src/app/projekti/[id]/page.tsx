@@ -1,45 +1,30 @@
 import Link from "next/link";
-import { gjejProjektin } from "../../../lib/udhetimet";
+import { notFound } from "next/navigation";
+import { gjejProjektin } from "@/lib/udhetimet";
 import Vendtakimi from "@/components/Vendtakimi";
 import VendetLive from "@/components/VendetLive";
 
-type Props = {
-  params: Promise<{ id: string }>;
-};
+export const dynamic = "force-dynamic";
 
-export default async function ProjektiDetajet({ params }: Props) {
+export default async function ProjektiDetajet({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const projekti = await gjejProjektin(id);
-
-  if (!projekti) {
-    return (
-      <main style={{ padding: "40px" }}>
-        <h1>Projekti nuk u gjet</h1>
-        <p>Ky projekt nuk ekziston.</p>
-        <Link href="/">Kthehu te projektet</Link>
-      </main>
-    );
-  }
+  if (!projekti) notFound();
 
   return (
-    <main style={{ padding: "40px" }}>
+    <main className="project-detail">
+      <Link className="project-back" href="/">← Të gjitha projektet</Link>
+      <span className="auth-eyebrow">DETAJET E PROJEKTIT</span>
       <h1>{projekti.emri}</h1>
-      <p><strong>Lokacioni:</strong> {projekti.lokacioni}</p>
-      <p><strong>Çmimi:</strong> {projekti.cmimi}</p>
-      <VendetLive projektiId={projekti.id} fillestare={projekti.vende} />
-      <p><strong>Përshkrimi:</strong> {projekti.pershkrimi}</p>
-
+      <section className="app-card project-overview">
+        <p><strong>Lokacioni</strong><br />{projekti.lokacioni}</p>
+        <p><strong>Çmimi i parashikuar</strong><br />{projekti.cmimi}</p>
+        <div aria-live="polite"><VendetLive projektiId={projekti.id} fillestare={projekti.vende} /></div>
+        <p><strong>Për projektin</strong><br />{projekti.pershkrimi}</p>
+        <Link className="project-cta" href={`/projekti/${projekti.id}/kerkesa`}>Kërko ofertë <span aria-hidden="true">→</span></Link>
+      </section>
       <Vendtakimi />
-
-      <p>
-        <Link href={`/projekti/${id}/kerkesa`}>
-          Kërko ofertë
-        </Link>
-      </p>
-
-      <p>
-        <Link href="/">Kthehu te projektet</Link>
-      </p>
+      <Link className="project-back" href="/">← Kthehu te projektet</Link>
     </main>
   );
 }

@@ -103,7 +103,7 @@ export default function GjendjaKerkesesLive({
       <p>
         Vende të lira: <strong>{gjendja.vende}</strong>
       </p>
-      <p style={{ color: online ? "green" : "#b45309" }}>
+      <p className={"live-status" + (online ? "" : " live-offline")}>
         {!online
           ? "Po rilidhemi · po shfaqen të dhënat e fundit të lexuara."
           : dukeLexuar

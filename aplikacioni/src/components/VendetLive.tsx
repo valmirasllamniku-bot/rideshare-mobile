@@ -70,7 +70,7 @@ export default function VendetLive({
   return (
     <div aria-live="polite">
       <p>Vende të lira: <strong>{vende}</strong></p>
-      <p style={{ color: online ? "green" : "#b45309" }}>
+      <p className={"live-status" + (online ? "" : " live-offline")}>
         {!online
           ? "Po rilidhemi · po shfaqet numri i fundit i lexuar."
           : uLexua

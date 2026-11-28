@@ -21,8 +21,9 @@ export type Kerkesa = {
 export async function profiliIm(): Promise<Profil | null> {
   const session = await getServerSession(authOptions);
   const id = session?.user?.id;
+  const idValide = id && (/^\d+$/.test(id) || /^google:[A-Za-z0-9._-]+$/.test(id));
 
-  if (!id || !/^\d+$/.test(id)) {
+  if (!idValide) {
     return null;
   }
 
@@ -33,7 +34,6 @@ export async function profiliIm(): Promise<Profil | null> {
     VALUES (${id}, ${session.user.name ?? "Klient"})
     ON CONFLICT (github_id) DO NOTHING
   `;
-
   const rows = await sql`
     SELECT github_id AS id, emri, roli
     FROM profilet
@@ -41,9 +41,14 @@ export async function profiliIm(): Promise<Profil | null> {
     LIMIT 1
   `;
 
-  return (rows[0] as Profil | undefined) ?? null;
-}
+  const profili = rows[0] as Profil | undefined;
+  if (!profili || (profili.roli !== "klient" && profili.roli !== "admin")) {
+    return null;
+  }
 
+  // Roli i ruajtur në databazë vlen njësoj për Google dhe GitHub.
+  return profili;
+}
 export async function kerkesaIme(): Promise<Kerkesa | null> {
   const p = await profiliIm();
 

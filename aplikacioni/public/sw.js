@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "ndertimtari-v5";
+const CACHE_NAME = "ndertimtari-v6";
 
 const FILES_TO_CACHE = [
   "/",
@@ -122,6 +122,24 @@ self.addEventListener("fetch", (event) => {
 
   // Authenticated API responses must not be cached between browser sessions.
   if (url.pathname.startsWith("/api/")) return;
+
+  // Mos ruaj faqet me të dhëna të lidhura me llogarinë në pajisje.
+  if (
+    url.pathname === "/panel" ||
+    url.pathname.startsWith("/panel/") ||
+    /\/kerkesa(?:\/|$)/.test(url.pathname)
+  ) {
+    event.respondWith(
+      fetch(request).catch(async () =>
+        (await caches.match("/offline.html")) ||
+        new Response("Nuk ka lidhje me internetin.", {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        })
+      )
+    );
+    return;
+  }
 
   if (request.mode === "navigate") {
     event.respondWith(

@@ -2,21 +2,11 @@ import Link from "next/link";
 
 export default function ProjektiNukUGjet() {
   return (
-    <main
-      style={{
-        padding: "40px",
-        color: "black",
-        backgroundColor: "white",
-        minHeight: "100vh",
-      }}
-    >
+    <main className="not-found-page">
+      <span className="auth-eyebrow">NDËRTIMTARI</span>
       <h1>Projekti nuk u gjet</h1>
-
-      <p>Ky projekt nuk ekziston.</p>
-
-      <Link href="/" style={{ color: "blue" }}>
-        Kthehu te projektet
-      </Link>
+      <p>Ky projekt mund të jetë hequr ose lidhja nuk është e saktë.</p>
+      <Link className="project-cta" href="/">Kthehu te projektet <span aria-hidden="true">→</span></Link>
     </main>
   );
 }

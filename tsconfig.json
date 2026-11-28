@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "typeRoots": ["./aplikacioni/node_modules/@types", "./node_modules/@types"],
+    "types": ["react", "node"],
+    "paths": {
+      "react": ["./aplikacioni/node_modules/@types/react/index.d.ts"],
+      "react/*": ["./aplikacioni/node_modules/@types/react/*"],
+      "next/link": ["./aplikacioni/node_modules/next/dist/client/link.d.ts"]
+    }
+  },
+  "files": ["app/page.tsx", "src/components/KartaUdhetimi.tsx"],
+  "exclude": ["node_modules", "aplikacioni"]
+}
