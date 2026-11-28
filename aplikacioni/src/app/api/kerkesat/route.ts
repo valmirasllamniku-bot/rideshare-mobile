@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { profiliIm } from "@/lib/lejet";
 import { getSql } from "@/lib/db";
+import { dergoNjoftimPush } from "@/lib/push";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
@@ -105,7 +107,7 @@ export async function POST(request: Request) {
           ON CONFLICT (kerkesa_id) DO NOTHING
           RETURNING id
         )
-        SELECT p.id, p.projekt_id, p.status, n.id AS njoftim_id
+        SELECT p.id, p.projekt_id, p.github_id, p.status, n.id AS njoftim_id
         FROM pergjigjja p
         LEFT JOIN njoftimi n ON TRUE
       `;
@@ -116,6 +118,13 @@ export async function POST(request: Request) {
           { status: 409 }
         );
       }
+
+      await dergoNjoftimPush(String(refuzimi[0].github_id), {
+        title: "Kërkesa u refuzua",
+        body: "Administratori e refuzoi kërkesën tënde.",
+        url: "/panel",
+        tag: `kerkesa-${id}`,
+      });
 
       return NextResponse.json({ success: true, kerkesa: refuzimi[0] });
     }
@@ -151,7 +160,7 @@ export async function POST(request: Request) {
         ON CONFLICT (kerkesa_id) DO NOTHING
         RETURNING id
       )
-      SELECT p.id, p.projekt_id, p.status, n.id AS njoftim_id
+      SELECT p.id, p.projekt_id, p.github_id, p.status, n.id AS njoftim_id
       FROM pranimi p
       LEFT JOIN njoftimi n ON TRUE
     `;
@@ -162,6 +171,13 @@ export async function POST(request: Request) {
         { status: 409 }
       );
     }
+
+    await dergoNjoftimPush(String(rezultati[0].github_id), {
+      title: "Kërkesa u pranua",
+      body: "Administratori e pranoi kërkesën tënde.",
+      url: "/panel",
+      tag: `kerkesa-${id}`,
+    });
 
     return NextResponse.json({ success: true, kerkesa: rezultati[0] });
   } catch (error) {

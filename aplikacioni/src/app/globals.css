@@ -202,10 +202,26 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .admin-request-actions { display: grid; grid-template-columns: 1fr; }
   .admin-request-actions button { width: 100%; }
 }
-.notification-toast { margin: 15px 0; padding: 16px; border: 1px solid #f0c795; border-radius: 12px; background: #fff8ef; }
+.notification-toast {
+  position: fixed;
+  z-index: 10000;
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%;
+  width: min(460px, calc(100vw - 24px));
+  margin: 0;
+  padding: 16px;
+  transform: translateX(-50%);
+  border: 1px solid #f0c795;
+  border-radius: 12px;
+  background: #fff8ef;
+  box-shadow: 0 12px 36px rgb(37 32 25 / 22%);
+}
 .notification-toast p { margin: 8px 0; color: #625d57; line-height: 1.6; }
 .notification-toast button, .notification-details button { min-height: 40px; margin: 5px 8px 0 0; padding: 0 14px; border: 0; border-radius: 9px; background: var(--brand); color: #fff; font-weight: 750; cursor: pointer; }
 .notification-toast .notification-dismiss { border: 1px solid #ded8cf; background: white; color: #51483f; }
+.push-enable-button { min-height: 44px; margin: 0 0 10px; padding: 0 15px; border: 0; border-radius: 9px; background: var(--brand); color: #fff; font-weight: 750; cursor: pointer; }
+.push-enable-button:disabled { opacity: .7; cursor: default; }
+.push-message { margin: 7px 0 13px; color: #625d57; font-size: 13px; line-height: 1.55; }
 .live-offline { color: #a85a15; }
 .project-overview { max-width: 760px; }
 .project-overview > p { margin: 16px 0; }
