@@ -6,6 +6,14 @@ import Providers from "./providers";
 export const metadata: Metadata = {
   title: "Ndërtimtari",
   description: "Aplikacion për projekte ndërtimore dhe kërkesa për oferta.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Ndërtimtari",
+  },
+  icons: {
+    apple: "/icons/icon-192.png",
+  },
 };
 
 export default function RootLayout({

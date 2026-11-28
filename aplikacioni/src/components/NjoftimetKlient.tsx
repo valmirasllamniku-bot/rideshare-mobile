@@ -40,9 +40,113 @@ export default function NjoftimetKlient() {
   const [gabimi, setGabimi] = useState("");
   const [dukeNgarkuar, setDukeNgarkuar] = useState(true);
   const [dukeHapur, setDukeHapur] = useState<number | null>(null);
+  const [pushMesazhi, setPushMesazhi] = useState("");
+  const [pushNeProces, setPushNeProces] = useState(false);
+  const [pushAktive, setPushAktive] = useState(false);
+  const [pushMbeshte, setPushMbeshte] = useState<boolean | null>(null);
   const njohura = useRef(new Set<number>());
   const ngarkuarNjehere = useRef(false);
   const kerkesaNeFluturim = useRef(false);
+
+  useEffect(() => {
+    let aktiv = true;
+
+    async function kontrolloPush() {
+      const mbeshtetet =
+        "serviceWorker" in navigator &&
+        "PushManager" in window &&
+        "Notification" in window;
+      if (!aktiv) return;
+      setPushMbeshte(mbeshtetet);
+      if (!mbeshtetet || Notification.permission !== "granted") return;
+
+      try {
+        const registration = await navigator.serviceWorker.register("/sw.js");
+        const subscription = await registration.pushManager.getSubscription();
+        if (!subscription) return;
+
+        const response = await fetch("/api/push/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(subscription),
+        });
+        if (aktiv) setPushAktive(response.ok);
+      } catch {
+        if (aktiv) setPushMesazhi("Njoftimet e telefonit nuk mund të kontrollohen.");
+      }
+    }
+
+    void kontrolloPush();
+    return () => { aktiv = false; };
+  }, []);
+
+  function dekodoVapidKey(key: string): ArrayBuffer {
+    const padding = "=".repeat((4 - (key.length % 4)) % 4);
+    const binary = atob(key.replace(/-/g, "+").replace(/_/g, "/") + padding);
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index += 1) {
+      bytes[index] = binary.charCodeAt(index);
+    }
+    return bytes.buffer;
+  }
+
+  async function aktivizoPush() {
+    setPushNeProces(true);
+    setPushMesazhi("");
+
+    try {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const eshteIOS = /iphone|ipad|ipod/.test(userAgent) ||
+        (/macintosh/.test(userAgent) && navigator.maxTouchPoints > 1);
+      const siAplikacion = window.matchMedia("(display-mode: standalone)").matches ||
+        (navigator as Navigator & { standalone?: boolean }).standalone === true;
+
+      if (eshteIOS && !siAplikacion) {
+        setPushMesazhi("Në iPhone, shtoje faqen në Home Screen nga Safari (Share → Add to Home Screen), hape ikonën e aplikacionit dhe provo përsëri.");
+        return;
+      }
+
+      if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) {
+        setPushMesazhi("Ky shfletues nuk i mbështet njoftimet push. Në iPhone përdor aplikacionin e shtuar në Home Screen me iOS 16.4 ose më të ri.");
+        return;
+      }
+
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        setPushMesazhi("Lejo njoftimet për Ndërtimtari te cilësimet e iPhone-it dhe provo përsëri.");
+        return;
+      }
+
+      const configResponse = await fetch("/api/push/subscribe", { cache: "no-store" });
+      const config = await configResponse.json();
+      if (!configResponse.ok || typeof config.publicKey !== "string") {
+        throw new Error(config.error ?? "Vercel nuk i ka ende çelësat e njoftimeve.");
+      }
+
+      const registration = await navigator.serviceWorker.register("/sw.js");
+      const activeRegistration = await navigator.serviceWorker.ready;
+      const subscription = await activeRegistration.pushManager.getSubscription() ??
+        await activeRegistration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: dekodoVapidKey(config.publicKey),
+        });
+
+      const saveResponse = await fetch("/api/push/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(subscription),
+      });
+      const saveResult = await saveResponse.json();
+      if (!saveResponse.ok) throw new Error(saveResult.error ?? "Abonimi nuk u ruajt.");
+
+      setPushAktive(true);
+      setPushMesazhi("Njoftimet e telefonit u aktivizuan.");
+    } catch (error) {
+      setPushMesazhi(error instanceof Error ? error.message : "Njoftimet e telefonit nuk u aktivizuan.");
+    } finally {
+      setPushNeProces(false);
+    }
+  }
 
   useEffect(() => {
     let aktiv = true;
@@ -141,6 +245,22 @@ export default function NjoftimetKlient() {
     <section className="client-notifications" aria-live="polite">
       <h2>Njoftimet</h2>
       <p>Njoftime të palexuara: <strong>{tePalexuara}</strong></p>
+      <button
+        className="push-enable-button"
+        type="button"
+        onClick={() => void aktivizoPush()}
+        disabled={pushNeProces || pushAktive}
+      >
+        {pushNeProces
+          ? "Duke aktivizuar…"
+          : pushAktive
+            ? "Njoftimet e telefonit janë aktive"
+            : "Aktivizo njoftimet në telefon"}
+      </button>
+      {pushMesazhi && <p className="push-message" role="status">{pushMesazhi}</p>}
+      {pushMbeshte === false && !pushMesazhi && (
+        <p className="push-message">Njoftimet e telefonit mund të aktivizohen nga iPhone me iOS 16.4 ose më të ri, pasi faqja të shtohet në Home Screen.</p>
+      )}
       {gabimi && <p role="alert">{gabimi}</p>}
       {dukeNgarkuar && <p>Po ngarkohen njoftimet...</p>}
       {!dukeNgarkuar && njoftimet.length === 0 && <p>Nuk ke ende njoftime.</p>}

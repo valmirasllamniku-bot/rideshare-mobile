@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "ndertimtari-v6";
+const CACHE_NAME = "ndertimtari-v7";
 
 const FILES_TO_CACHE = [
   "/",
@@ -33,6 +33,45 @@ self.addEventListener("activate", (event) => {
   );
 
   self.clients.claim();
+});
+
+self.addEventListener("push", (event) => {
+  let data = {};
+  try {
+    data = event.data ? event.data.json() : {};
+  } catch {
+    data = { body: event.data?.text() ?? "Hape Ndërtimtari për detaje." };
+  }
+
+  const title = typeof data.title === "string" ? data.title : "Njoftim i ri · Ndërtimtari";
+  const options = {
+    body: typeof data.body === "string" ? data.body : "Ke një përditësim për kërkesën tënde.",
+    icon: "/icons/icon-192.png",
+    badge: "/icons/icon-192.png",
+    tag: typeof data.tag === "string" ? data.tag : "ndertimtari-njoftim",
+    data: { url: typeof data.url === "string" ? data.url : "/panel" },
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const targetUrl = new URL(event.notification.data?.url || "/panel", self.location.origin);
+  const destination = targetUrl.origin === self.location.origin ? targetUrl.href : `${self.location.origin}/panel`;
+
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(async (clients) => {
+      for (const client of clients) {
+        if ("focus" in client) {
+          await client.focus();
+          if ("navigate" in client) await client.navigate(destination);
+          return;
+        }
+      }
+      await self.clients.openWindow(destination);
+    })
+  );
 });
 
 self.addEventListener("fetch", (event) => {
